@@ -6,73 +6,85 @@ import { MapPin, Globe, ArrowRight, Phone, Headphones } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col w-full">
-      {/* Hero — left-aligned, ONE dominant CTA + text-link secondary */}
-      <section className="relative overflow-hidden min-h-[560px] lg:min-h-[680px] flex items-center bg-[#050F1E]">
-        <Image
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
-          alt="Bangun Ciptadana headquarter"
-          fill
-          className="object-cover object-center select-none"
-          priority
-        />
-        <div className="absolute inset-0 z-10" style={{ background: "linear-gradient(90deg, rgba(5,15,40,0.88), rgba(5,15,40,0.5), rgba(5,15,40,0.12))" }} />
-        <div className="max-w-[1240px] mx-auto px-4 md:px-6 w-full relative z-20 py-20 lg:py-28">
-          <div className="max-w-lg text-left">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white mb-3 uppercase">
-              Bangun Ciptadana
+    <div className="flex flex-col w-full bg-slate-50/50">
+      {/* 1. HERO SECTION - Split Layout, Bright Corporate look, height ~700px */}
+      <section className="relative bg-white overflow-hidden min-h-[600px] lg:h-[700px] flex items-center border-b border-brand-border">
+        {/* Left blue tint gradient background */}
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,#F0F7FC_0%,#F0F7FC_45%,#FFFFFF_100%)] hidden lg:block" />
+        <div className="absolute inset-0 bg-[#F0F7FC]/70 lg:hidden" />
+
+        <div className="max-w-[1240px] mx-auto px-4 md:px-6 w-full relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center py-16 lg:py-0 h-full">
+          {/* Left Content (45%) */}
+          <div className="lg:col-span-5 text-left flex flex-col justify-center">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-[#0F172A] mb-2 uppercase">
+              BANGUN CIPTADANA
             </h1>
-            <p className="text-lg sm:text-xl font-semibold text-brand-secondary mb-6 uppercase tracking-wide leading-snug">
+            <p className="text-lg sm:text-xl font-bold text-brand-secondary mb-5 uppercase tracking-wide">
               Your Real Partner
             </p>
-            <p className="text-white/85 text-sm leading-relaxed mb-8 max-w-md">
-              Solusi konstruksi profesional untuk bangunan komersial, residensial, renovasi, interior, aluminium, kaca, dan pekerjaan sipil.
+            <p className="text-[#334155] text-sm sm:text-base leading-relaxed mb-8 max-w-md">
+              Solusi konstruksi profesional untuk bangunan komersial, residensial, renovasi, interior, aluminium, kaca, dan pekerjaan sipil dengan kualitas premium dan ketepatan waktu.
             </p>
-            <div className="flex items-center gap-5 flex-wrap">
+            <div className="flex items-center gap-4 flex-wrap">
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center gap-2 h-11 px-6 bg-brand-primary hover:bg-brand-primary-dark text-white text-sm font-semibold rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                className="inline-flex items-center justify-center gap-2 h-11 px-6 bg-brand-primary hover:bg-brand-primary-dark text-white text-sm font-semibold rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary shadow-sm"
               >
                 Lihat Layanan <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </Link>
-              <Link href="/contact" className="text-sm text-white/80 hover:text-white font-medium transition-colors underline underline-offset-4 decoration-white/40 hover:decoration-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white rounded">
-                Hubungi Kami <Phone className="w-3.5 h-3.5 inline" aria-hidden="true" />
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 h-11 px-6 border border-brand-border bg-white hover:bg-slate-50 text-brand-text text-sm font-semibold rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary shadow-sm"
+              >
+                Hubungi Kami <Phone className="w-4 h-4" aria-hidden="true" />
               </Link>
             </div>
           </div>
+
+          {/* Right Image (55%) - Modern office building with soft shadow and rounded corners */}
+          <div className="lg:col-span-7 w-full h-[320px] sm:h-[400px] lg:h-[500px] relative rounded-xl overflow-hidden shadow-lg border border-brand-border bg-slate-100">
+            <Image
+              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"
+              alt="Modern office / commercial building"
+              fill
+              sizes="(max-w-1024px) 100vw, 55vw"
+              className="object-cover object-center select-none"
+              priority
+            />
+          </div>
         </div>
       </section>
 
-      {/* Overlap info card — addresses immediately */}
-      <section className="relative z-30 -mt-8 px-4">
-        <div className="max-w-[1240px] mx-auto bg-white rounded-lg border border-brand-border p-6 md:p-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 md:divide-x divide-brand-border">
-            <div className="flex items-center gap-4 pb-4 md:pb-0">
-              <div className="w-11 h-11 bg-brand-primary/8 rounded-md flex items-center justify-center shrink-0">
-                <MapPin className="w-5 h-5 text-brand-primary" aria-hidden="true" />
+      {/* 2. FLOATING INFO CARD - Overlapping hero bottom, rounded 16px (2xl) */}
+      <section className="relative z-30 -mt-10 px-4">
+        <div className="max-w-[1240px] mx-auto bg-white rounded-2xl shadow-[0_20px_40px_rgba(15,23,42,0.06)] border border-brand-border p-8 md:p-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:divide-x divide-brand-border">
+            <div className="flex items-center gap-5 pb-6 md:pb-0">
+              <div className="w-12 h-12 bg-brand-primary/8 rounded-lg flex items-center justify-center shrink-0">
+                <MapPin className="w-6 h-6 text-brand-primary" aria-hidden="true" />
               </div>
-              <div>
-                <p className="text-[11px] font-semibold text-brand-muted uppercase tracking-wide mb-0.5">Alamat Kantor</p>
-                <p className="text-brand-text font-semibold text-sm">Jl. XXXXXXXX No. XX, Kota XXXXX</p>
+              <div className="text-left">
+                <h4 className="text-[11px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Alamat Kantor</h4>
+                <p className="text-[#0F172A] font-semibold text-sm sm:text-base">Jl. XXXXXXXX No. XX, Kota XXXXX</p>
               </div>
             </div>
-            <div className="flex items-center gap-4 pt-4 md:pt-0 md:pl-8">
-              <div className="w-11 h-11 bg-brand-secondary/8 rounded-md flex items-center justify-center shrink-0">
-                <Globe className="w-5 h-5 text-brand-secondary" aria-hidden="true" />
+            <div className="flex items-center gap-5 pt-6 md:pt-0 md:pl-8">
+              <div className="w-12 h-12 bg-brand-secondary/8 rounded-lg flex items-center justify-center shrink-0">
+                <Globe className="w-6 h-6 text-brand-secondary" aria-hidden="true" />
               </div>
-              <div>
-                <p className="text-[11px] font-semibold text-brand-secondary uppercase tracking-wide mb-0.5">Area Layanan</p>
-                <p className="text-brand-text font-semibold text-sm">Melayani proyek konstruksi dan renovasi di seluruh Indonesia.</p>
+              <div className="text-left">
+                <h4 className="text-[11px] font-semibold text-brand-secondary uppercase tracking-wider mb-1">Area Layanan</h4>
+                <p className="text-[#0F172A] font-semibold text-sm sm:text-base">Melayani proyek konstruksi dan renovasi di seluruh Indonesia.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Services — varied grid (dominant first card), NO border-l accent, NO icon bg containers */}
+      {/* 3. SERVICES SECTION - Varied grid */}
       <section className="pt-16 pb-20 max-w-[1240px] mx-auto px-4">
-        <div className="mb-10">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-text leading-tight">
+        <div className="mb-10 text-left">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0F172A] leading-tight">
             Layanan Konstruksi Terbaik untuk Anda
           </h2>
           <p className="text-brand-muted text-sm leading-relaxed mt-3 max-w-lg">
@@ -89,7 +101,7 @@ export default function HomePage() {
               <div className="mt-0.5 text-brand-secondary shrink-0">
                 {getServiceIcon(service.iconName)}
               </div>
-              <div>
+              <div className="text-left">
                 <h3 className="text-sm font-semibold text-brand-text mb-1.5 group-hover:text-brand-primary transition-colors">{service.title}</h3>
                 <p className="text-brand-muted text-xs leading-relaxed">{service.description}</p>
               </div>
@@ -98,14 +110,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Stats bar — compact inline, not cards */}
+      {/* 4. STATS ROW */}
       <section className="bg-white py-10 border-y border-brand-border">
         <div className="max-w-[1240px] mx-auto px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
             {STATS_DATA.map((item) => (
               <div key={item.id} className="flex items-center gap-3">
                 <div className="text-brand-secondary shrink-0">{getStatIcon(item.iconName)}</div>
-                <div>
+                <div className="text-left">
                   <div className="text-xl font-bold text-brand-text tracking-tight">{item.value}</div>
                   <div className="text-[11px] font-medium text-brand-muted">{item.label}</div>
                 </div>
@@ -115,12 +127,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Profile teaser — asymmetric (text 5 / image 7), different rhythm */}
+      {/* 5. PROFILE TEASER */}
       <section className="py-14 bg-brand-bg">
         <div className="max-w-[1240px] mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-5 flex flex-col items-start">
-              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-text leading-tight mb-4">
+            <div className="lg:col-span-5 flex flex-col items-start text-left">
+              <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#0F172A] leading-tight mb-4">
                 Membangun dengan Kualitas, Mewujudkan Kepercayaan
               </h2>
               <p className="text-brand-muted text-sm leading-relaxed mb-3">
@@ -140,14 +152,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* CTA ribbon — ONE gradient budgeted, solid dark CTA */}
+      {/* 6. CTA RIBBON */}
       <section className="bg-brand-primary py-10 text-white">
         <div className="max-w-[1240px] mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4 text-left">
             <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0">
               <Headphones className="w-6 h-6 text-brand-primary" aria-hidden="true" />
             </div>
-            <div>
+            <div className="text-left">
               <p className="text-base font-bold tracking-wide">Konsultasikan kebutuhan proyek Anda.</p>
               <p className="text-white/80 text-sm mt-0.5">Tim sipil & arsitek siap memberikan solusi terbaik.</p>
             </div>
