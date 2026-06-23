@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import { MapPin, Phone, Mail, Award } from "lucide-react";
+import type { CompanyProfile } from "@/data/store";
 
-export default function Footer() {
+export default function Footer({ profile }: { profile: CompanyProfile }) {
   return (
     <footer className="bg-[#071424] border-t border-slate-800 text-slate-100">
       <div className="max-w-[1240px] mx-auto px-4 py-14">
@@ -16,7 +17,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-2 bg-slate-800/40 px-3 py-1.5 rounded-md border border-slate-800 self-start">
               <Award className="w-4 h-4 text-brand-secondary shrink-0" aria-hidden="true" />
-              <span className="text-[10px] font-semibold tracking-wider text-brand-secondary uppercase">Your Real Partner</span>
+              <span className="text-[10px] font-semibold tracking-wider text-brand-secondary uppercase">{profile.tagline}</span>
             </div>
           </div>
 
@@ -40,15 +41,15 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-brand-secondary shrink-0 mt-0.5" aria-hidden="true" />
-                <span className="text-xs text-slate-400 leading-relaxed">Jl. XXXXXXXX No. XX, Kota XXXXX</span>
+                <span className="text-xs text-slate-400 leading-relaxed">{profile.address}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-brand-secondary shrink-0" aria-hidden="true" />
-                <span className="text-xs text-slate-400">+62 xxxx xxxx xxxx</span>
+                <span className="text-xs text-slate-400">{profile.phone}</span>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-brand-secondary shrink-0" aria-hidden="true" />
-                <a href="mailto:info@bangunciptadana.com" className="text-xs text-slate-400 hover:text-white transition-colors font-medium focus-visible:outline-2 focus-visible:outline-brand-primary rounded">info@bangunciptadana.com</a>
+                <a href={`mailto:${profile.email}`} className="text-xs text-slate-400 hover:text-white transition-colors font-medium focus-visible:outline-2 focus-visible:outline-brand-primary rounded">{profile.email}</a>
               </li>
             </ul>
           </div>
@@ -57,7 +58,7 @@ export default function Footer() {
 
       <div className="bg-[#050E1A] border-t border-slate-800 py-4">
         <div className="max-w-[1240px] mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
-          <p className="text-[10px] text-slate-500 text-center sm:text-left">&copy; 2025 Bangun Ciptadana</p>
+          <p className="text-[10px] text-slate-500 text-center sm:text-left">&copy; {new Date().getFullYear()} Bangun Ciptadana</p>
           <p className="text-[10px] text-slate-600 text-center sm:text-right">Konstruksi · Atap · Aluminium · Kaca · Interior</p>
         </div>
       </div>

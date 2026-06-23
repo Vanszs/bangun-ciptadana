@@ -1,8 +1,12 @@
 import HeroBanner from "@/components/HeroBanner";
 import ContactForm from "@/components/ContactForm";
 import { Phone, Mail, MessageSquare, AtSign, MapPin } from "lucide-react";
+import { readStore } from "@/data/store";
 
-export default function ContactPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ContactPage() {
+  const { profile } = await readStore();
   return (
     <div className="flex flex-col w-full">
       <HeroBanner title="Contact Us" />
@@ -16,39 +20,39 @@ export default function ContactPage() {
                 Sampaikan rencana pembangunan atau renovasi Anda. Tim ahli Bangun Ciptadana siap memberikan solusi teknis dan estimasi anggaran transparan.
               </p>
               <div className="space-y-5">
-                <div className="flex items-center gap-3">
-                  <Phone className="w-4 h-4 text-brand-secondary shrink-0" aria-hidden="true" />
+                <div className="flex items-start gap-3">
+                  <Phone className="w-4 h-4 text-brand-primary mt-1 shrink-0" aria-hidden="true" />
                   <div>
                     <p className="text-[11px] font-medium text-brand-muted uppercase tracking-wide">Telepon</p>
-                    <p className="text-brand-text font-semibold text-sm">+62 xxxx xxxx xxxx</p>
+                    <p className="text-brand-text font-semibold text-sm">{profile.phone}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <Mail className="w-4 h-4 text-brand-primary shrink-0" aria-hidden="true" />
+                <div className="flex items-start gap-3">
+                  <Mail className="w-4 h-4 text-brand-primary mt-1 shrink-0" aria-hidden="true" />
                   <div>
                     <p className="text-[11px] font-medium text-brand-muted uppercase tracking-wide">Email</p>
-                    <a href="mailto:info@bangunciptadana.com" className="text-brand-text font-semibold text-sm hover:text-brand-primary transition-colors">info@bangunciptadana.com</a>
+                    <a href={`mailto:${profile.email}`} className="text-brand-text font-semibold text-sm hover:text-brand-primary transition-colors">{profile.email}</a>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <MessageSquare className="w-4 h-4 text-brand-secondary shrink-0" aria-hidden="true" />
+                <div className="flex items-start gap-3">
+                  <MessageSquare className="w-4 h-4 text-brand-primary mt-1 shrink-0" aria-hidden="true" />
                   <div>
                     <p className="text-[11px] font-medium text-brand-muted uppercase tracking-wide">WhatsApp</p>
-                    <p className="text-brand-text font-semibold text-sm">+62 xxxx xxxx xxxx</p>
+                    <p className="text-brand-text font-semibold text-sm">{profile.phone}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <AtSign className="w-4 h-4 text-brand-primary shrink-0" aria-hidden="true" />
+                <div className="flex items-start gap-3">
+                  <AtSign className="w-4 h-4 text-brand-primary mt-1 shrink-0" aria-hidden="true" />
                   <div>
                     <p className="text-[11px] font-medium text-brand-muted uppercase tracking-wide">Instagram</p>
                     <p className="text-brand-text font-semibold text-sm">@bangunciptadana</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-4 h-4 text-brand-secondary shrink-0" aria-hidden="true" />
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-4 h-4 text-brand-primary mt-1 shrink-0" aria-hidden="true" />
                   <div>
                     <p className="text-[11px] font-medium text-brand-muted uppercase tracking-wide">Alamat</p>
-                    <p className="text-brand-text font-semibold text-xs leading-snug">Jl. XXXXXXXX No. XX, Kota XXXXX</p>
+                    <p className="text-brand-text font-semibold text-xs leading-snug">{profile.address}</p>
                   </div>
                 </div>
               </div>

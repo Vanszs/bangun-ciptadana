@@ -85,7 +85,7 @@ export default async function AboutPage() {
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-text mb-8">Mengapa Memilih Kami?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {values.map((val, idx) => (
-              <div key={val.id} className={`p-6 bg-brand-bg rounded-md border border-brand-border/50 text-left ${idx === 0 ? "md:border-l-2 md:border-l-brand-primary" : ""}`}>
+              <div key={val.id} className="p-6 bg-brand-bg rounded-md border border-brand-border/50 text-left first:md:border-l-2 first:md:border-l-brand-primary">
                 <div className="mb-4">{getValueIcon(idx)}</div>
                 <h3 className="text-sm font-semibold text-brand-text mb-2 uppercase tracking-wide">{val.title}</h3>
                 <p className="text-brand-muted text-sm leading-relaxed">{val.description}</p>

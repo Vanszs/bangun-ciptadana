@@ -51,7 +51,7 @@ export default async function HomePage() {
           </div>
 
           {/* Right Image (55%) - Clean, bright, premium building image with soft shadow and rounded corners */}
-          <div className="w-full h-[320px] sm:h-[400px] lg:h-[480px] relative rounded-2xl overflow-hidden shadow-[0_15px_30px_rgba(15,23,42,0.08)] border border-brand-border bg-slate-100">
+          <div className="w-full h-[320px] sm:h-[400px] lg:h-[480px] relative rounded-2xl overflow-hidden shadow-xl border border-brand-border bg-slate-100">
             <Image
               src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"
               alt="Modern office / commercial building facade"
@@ -66,7 +66,7 @@ export default async function HomePage() {
 
       {/* 2. FLOATING INFO CARD - Overlapping hero bottom, rounded 16px (2xl) */}
       <section className="relative z-30 -mt-10 px-4">
-        <div className="max-w-[1240px] mx-auto bg-white rounded-2xl shadow-[0_20px_40px_rgba(15,23,42,0.06)] border border-brand-border p-8 md:p-10">
+        <div className="max-w-[1240px] mx-auto bg-white rounded-2xl shadow-2xl border border-brand-border p-8 md:p-10">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:divide-x divide-brand-border">
             <div className="flex items-center gap-5 pb-6 md:pb-0">
               <div className="w-12 h-12 bg-brand-primary/8 rounded-lg flex items-center justify-center shrink-0">
@@ -101,11 +101,11 @@ export default async function HomePage() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {SERVICES_DATA.map((service, i) => (
+          {SERVICES_DATA.map((service) => (
             <Link
               key={service.id}
               href="/services"
-              className={`bg-white p-6 rounded-md border border-brand-border/50 hover:border-brand-primary/30 transition-colors duration-150 cursor-pointer group flex items-start gap-4 ${i === 0 ? "lg:col-span-2 lg:row-span-1" : ""}`}
+              className="bg-white p-6 rounded-md border border-brand-border/50 hover:border-brand-primary/30 transition-colors duration-150 group flex items-start gap-4"
             >
               <div className="mt-0.5 text-brand-secondary shrink-0">
                 {getServiceIcon(service.iconName)}

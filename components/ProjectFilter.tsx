@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 import { Plus, ArrowRight } from "lucide-react";
 import type { ProjectItem } from "@/data/types";
 
@@ -23,7 +24,7 @@ export default function ProjectFilter({ projects }: Props) {
           <button
             key={cat}
             onClick={() => setSelected(cat)}
-            className={`px-4 py-2 rounded-sm text-xs font-medium transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-brand-primary ${
+            className={`px-4 py-2 rounded-sm text-xs font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-brand-primary ${
               selected === cat ? "bg-brand-primary text-white" : "bg-brand-bg text-brand-muted border border-brand-border hover:border-brand-primary hover:text-brand-primary"
             }`}
             aria-pressed={selected === cat}
@@ -36,12 +37,12 @@ export default function ProjectFilter({ projects }: Props) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {filtered.map((project) => (
           <div key={project.id} className="bg-white rounded-md overflow-hidden border border-brand-border/50 hover:border-brand-secondary/30 transition-colors duration-150 flex flex-col group">
-            <div className="w-full h-40 overflow-hidden relative bg-slate-100">
+            <div className="relative w-full h-40 overflow-hidden bg-slate-100">
               <div className="absolute inset-0 bg-black/5 group-hover:bg-black/30 transition-colors duration-150 z-10" />
               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20">
                 <div className="w-9 h-9 rounded-full bg-brand-primary text-white flex items-center justify-center"><Plus className="w-4 h-4" aria-hidden="true" /></div>
               </div>
-              <img src={project.imageUrl} alt={project.title} className="w-full h-full object-cover object-center select-none" referrerPolicy="no-referrer" />
+              <Image src={project.imageUrl} alt={project.title} fill unoptimized sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover object-center select-none" />
             </div>
             <div className="p-4 flex flex-col flex-grow text-left">
               <span className="text-[11px] font-medium text-brand-secondary uppercase tracking-wide block mb-1">{project.category}</span>
@@ -61,7 +62,7 @@ export default function ProjectFilter({ projects }: Props) {
       <div className="mt-8 text-center">
         <button
           onClick={() => setSelected("Semua")}
-          className="inline-flex items-center gap-2 bg-brand-secondary hover:bg-brand-secondary-dark text-white px-5 h-10 rounded-md text-sm font-semibold transition-colors duration-150 cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-secondary"
+          className="inline-flex items-center gap-2 bg-brand-secondary hover:bg-brand-secondary-dark text-white px-5 h-10 rounded-md text-sm font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-secondary"
         >
           Lihat Semua Proyek <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </button>
