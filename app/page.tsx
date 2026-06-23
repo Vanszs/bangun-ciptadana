@@ -7,45 +7,48 @@ import { MapPin, Globe, ArrowRight, Phone, Headphones } from "lucide-react";
 export default function HomePage() {
   return (
     <div className="flex flex-col w-full bg-slate-50/50">
-      {/* 1. HERO SECTION - Split Layout, Bright Corporate look, height ~700px */}
-      <section className="relative bg-white overflow-hidden min-h-[600px] lg:h-[700px] flex items-center border-b border-brand-border">
-        {/* Left blue tint gradient background */}
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,#F0F7FC_0%,#F0F7FC_45%,#FFFFFF_100%)] hidden lg:block" />
-        <div className="absolute inset-0 bg-[#F0F7FC]/70 lg:hidden" />
+      {/* 1. HERO SECTION - Split Layout, Bright Corporate look, height ~700-750px */}
+      <section className="relative bg-white overflow-hidden min-h-[650px] lg:h-[720px] flex items-center border-b border-brand-border">
+        {/* Subtle blue gradient background behind left content area */}
+        <div className="absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-[#F0F7FC] via-[#F0F7FC]/80 to-transparent pointer-events-none hidden lg:block" />
+        <div className="absolute inset-0 bg-[#F0F7FC]/65 lg:hidden pointer-events-none" />
 
-        <div className="max-w-[1240px] mx-auto px-4 md:px-6 w-full relative z-20 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center py-16 lg:py-0 h-full">
+        <div className="max-w-[1240px] mx-auto px-4 md:px-6 w-full relative z-20 grid grid-cols-1 lg:grid-cols-[45fr_55fr] gap-8 lg:gap-16 items-center py-16 lg:py-0 h-full">
+          
           {/* Left Content (45%) */}
-          <div className="lg:col-span-5 text-left flex flex-col justify-center">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-[#0F172A] mb-2 uppercase">
+          <div className="text-left flex flex-col justify-center">
+            <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold tracking-tight leading-[1.1] text-slate-900 uppercase">
               BANGUN CIPTADANA
             </h1>
-            <p className="text-lg sm:text-xl font-bold text-brand-secondary mb-5 uppercase tracking-wide">
+            <p className="text-sm sm:text-base font-bold text-brand-secondary tracking-widest uppercase mt-3 mb-5">
               Your Real Partner
             </p>
-            <p className="text-[#334155] text-sm sm:text-base leading-relaxed mb-8 max-w-md">
+            <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-md">
               Solusi konstruksi profesional untuk bangunan komersial, residensial, renovasi, interior, aluminium, kaca, dan pekerjaan sipil dengan kualitas premium dan ketepatan waktu.
             </p>
-            <div className="flex items-center gap-4 flex-wrap">
+            
+            {/* Two CTA Buttons below */}
+            <div className="flex items-center gap-4 flex-wrap mt-8">
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center gap-2 h-11 px-6 bg-brand-primary hover:bg-brand-primary-dark text-white text-sm font-semibold rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary shadow-sm"
+                className="inline-flex items-center justify-center gap-2 h-11 px-6 bg-brand-primary hover:bg-brand-primary-dark text-white text-sm font-semibold rounded-md transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary shadow-sm"
               >
                 Lihat Layanan <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </Link>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 h-11 px-6 border border-brand-border bg-white hover:bg-slate-50 text-brand-text text-sm font-semibold rounded-md transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary shadow-sm"
+                className="inline-flex items-center justify-center gap-2 h-11 px-6 border border-brand-border bg-white hover:bg-slate-50 text-slate-700 text-sm font-semibold rounded-md transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary shadow-sm"
               >
                 Hubungi Kami <Phone className="w-4 h-4" aria-hidden="true" />
               </Link>
             </div>
           </div>
 
-          {/* Right Image (55%) - Modern office building with soft shadow and rounded corners */}
-          <div className="lg:col-span-7 w-full h-[320px] sm:h-[400px] lg:h-[500px] relative rounded-xl overflow-hidden shadow-lg border border-brand-border bg-slate-100">
+          {/* Right Image (55%) - Clean, bright, premium building image with soft shadow and rounded corners */}
+          <div className="w-full h-[320px] sm:h-[400px] lg:h-[480px] relative rounded-2xl overflow-hidden shadow-[0_15px_30px_rgba(15,23,42,0.08)] border border-brand-border bg-slate-100">
             <Image
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80"
-              alt="Modern office / commercial building"
+              src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1200&q=80"
+              alt="Modern office / commercial building facade"
               fill
               sizes="(max-w-1024px) 100vw, 55vw"
               className="object-cover object-center select-none"
