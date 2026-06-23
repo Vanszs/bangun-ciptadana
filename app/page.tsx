@@ -14,7 +14,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col w-full bg-slate-50/50">
       {/* 1. HERO — full-bleed image with directional gradient backdrop behind text */}
-      <section className="relative overflow-hidden min-h-[500px] sm:min-h-[520px] lg:h-[540px]">
+      <section className="relative overflow-hidden min-h-[580px] sm:min-h-[620px] lg:h-[680px]">
         {/* Image — full-bleed background */}
         <Image
           src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1920&q=80"
@@ -62,7 +62,7 @@ export default async function HomePage() {
               </p>
 
               {/* CTA Buttons — h-14 (56px), rounded-full, primary gradient + secondary outlined white */}
-              <div className="flex items-center gap-3 sm:gap-4 flex-wrap mt-8">
+              <div className="flex items-center gap-3 sm:gap-4 flex-wrap mt-6">
                 <Link
                   href="/services"
                   className="inline-flex items-center justify-center gap-2 h-14 px-7 rounded-full text-white text-sm font-semibold transition-all shadow-lg hover:shadow-2xl hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
@@ -79,7 +79,7 @@ export default async function HomePage() {
               </div>
 
               {/* Trust micro-row */}
-              <div className="flex items-center gap-5 mt-8 text-[11px] text-slate-300 font-medium">
+              <div className="flex items-center gap-5 mt-6 text-[11px] text-slate-300 font-medium">
                 <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-brand-secondary" aria-hidden="true" /> Material SNI</span>
                 <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-brand-primary" aria-hidden="true" /> Tim Bersertifikat</span>
                 <span className="hidden sm:inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-brand-secondary" aria-hidden="true" /> Garansi Tertulis</span>
@@ -89,9 +89,9 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* 2. FLOATING INFO CARD — overlaps hero (~200px), pulled up for prominence */}
+      {/* 2. FLOATING INFO CARD — overlaps hero (~100px), clean separation from text */}
       <section className="relative z-30 px-4">
-        <div className="max-w-[1100px] mx-auto bg-white rounded-[20px] shadow-2xl border border-brand-border/60 p-8 md:p-10 -mt-[200px]">
+        <div className="max-w-[1100px] mx-auto bg-white rounded-[20px] shadow-2xl border border-brand-border/60 p-8 md:p-10 -mt-[100px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:divide-x divide-brand-border">
             <div className="flex items-center gap-5 pb-6 md:pb-0">
               <div className="w-12 h-12 bg-brand-primary/8 rounded-lg flex items-center justify-center shrink-0">
