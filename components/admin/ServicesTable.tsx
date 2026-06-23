@@ -1,9 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -13,7 +12,7 @@ import { Select } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/toast";
-import { Pencil, Trash2, Loader2, Search, Plus } from "lucide-react";
+import { Pencil, Trash2, Loader2, Search, Plus, ArrowUp, ArrowDown, ChevronsUpDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { getServiceIcon } from "@/components/IconMapper";
 import type { ServiceItem } from "@/data/types";
 
@@ -21,6 +20,9 @@ const ICON_OPTIONS = [
   "Building2", "Home", "LayoutGrid", "Compass", "Layers", "Scaling",
   "Paintbrush", "Lightbulb", "Armchair", "Briefcase", "Hammer", "Wrench",
 ];
+const PAGE_SIZE = 25;
+type SortKey = "title";
+type SortDir = "asc" | "desc";
 
 interface Props {
   initial: ServiceItem[];
@@ -35,10 +37,31 @@ export default function ServicesTable({ initial }: Props) {
   const [creating, setCreating] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState<ServiceItem | null>(null);
   const [busy, setBusy] = useState(false);
+  const [sort, setSort] = useState<{ key: SortKey; dir: SortDir }>({ key: "title", dir: "asc" });
+  const [page, setPage] = useState(1);
 
   const filtered = items.filter((s) =>
     [s.title, s.description].some((t) => t.toLowerCase().includes(q.toLowerCase())),
   );
+
+  const sorted = useMemo(() => {
+    const arr = [...filtered];
+    arr.sort((a, b) => {
+      const cmp = a.title.localeCompare(b.title, "id");
+      return sort.dir === "asc" ? cmp : -cmp;
+    });
+    return arr;
+  }, [filtered, sort]);
+
+  useEffect(() => { setPage(1); }, [q]);
+
+  const totalPages = Math.max(1, Math.ceil(sorted.length / PAGE_SIZE));
+  const paged = sorted.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  function toggleSort(key: SortKey) {
+    setSort((prev) => prev.key === key ? { key, dir: prev.dir === "asc" ? "desc" : "asc" } : { key, dir: "asc" });
+    setPage(1);
+  }
 
   async function save(payload: Partial<ServiceItem>, id?: string) {
     setBusy(true);
@@ -90,6 +113,8 @@ export default function ServicesTable({ initial }: Props) {
     router.refresh();
   }
 
+  const SortIcon = sort.dir === "asc" ? ArrowUp : ArrowDown;
+
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3 flex-wrap">
@@ -110,21 +135,29 @@ export default function ServicesTable({ initial }: Props) {
           <TableHeader>
             <TableRow>
               <TableHead className="w-12"></TableHead>
-              <TableHead>Judul</TableHead>
+              <TableHead aria-sort={sort.key === "title" ? (sort.dir === "asc" ? "ascending" : "descending") : "none"}>
+                <button
+                  onClick={() => toggleSort("title")}
+                  className="inline-flex items-center gap-1.5 -mx-1 px-1 py-0.5 rounded hover:bg-slate-100 transition-colors"
+                >
+                  Judul
+                  {sort.key === "title" ? <SortIcon className="h-3 w-3 text-brand-primary" aria-hidden="true" /> : <ChevronsUpDown className="h-3 w-3 text-brand-muted opacity-50" aria-hidden="true" />}
+                </button>
+              </TableHead>
               <TableHead>Deskripsi</TableHead>
               <TableHead className="w-24">Ikon</TableHead>
               <TableHead className="w-24 text-right">Aksi</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filtered.length === 0 ? (
+            {paged.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="text-center py-12 text-brand-muted">
                   Tidak ada layanan ditemukan.
                 </TableCell>
               </TableRow>
             ) : (
-              filtered.map((s) => (
+              paged.map((s) => (
                 <TableRow key={s.id}>
                   <TableCell>
                     <div className="h-9 w-9 rounded-md bg-brand-secondary/10 text-brand-secondary-dark flex items-center justify-center">
@@ -156,6 +189,25 @@ export default function ServicesTable({ initial }: Props) {
           </TableBody>
         </Table>
       </div>
+
+      {sorted.length > PAGE_SIZE && (
+        <div className="flex items-center justify-between text-xs text-brand-muted">
+          <span>
+            Menampilkan <strong className="text-brand-text">{(page - 1) * PAGE_SIZE + 1}</strong>–
+            <strong className="text-brand-text">{Math.min(page * PAGE_SIZE, sorted.length)}</strong> dari{" "}
+            <strong className="text-brand-text">{sorted.length}</strong>
+          </span>
+          <div className="inline-flex items-center gap-1">
+            <Button size="sm" variant="outline" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={page === 1}>
+              <ChevronLeft className="h-3.5 w-3.5" /> Sebelumnya
+            </Button>
+            <span className="px-3 tabular-nums text-brand-text font-semibold">{page} / {totalPages}</span>
+            <Button size="sm" variant="outline" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={page === totalPages}>
+              Selanjutnya <ChevronRight className="h-3.5 w-3.5" />
+            </Button>
+          </div>
+        </div>
+      )}
 
       <ServiceFormDialog
         open={creating}
