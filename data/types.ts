@@ -31,4 +31,6 @@ export interface CompanyStat {
   value: string;
   label: string;
   iconName: string;
+  delta?: string;
+  trend?: "up" | "down" | "flat";
 }

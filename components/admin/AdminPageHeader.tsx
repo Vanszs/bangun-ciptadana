@@ -22,7 +22,7 @@ export default function AdminPageHeader({ title, description, backHref, actions 
             Kembali
           </Link>
         )}
-        <h1 className="text-2xl font-bold text-brand-text tracking-tight">{title}</h1>
+        <h1 className="text-xl font-semibold text-brand-text tracking-tight">{title}</h1>
         {description && <p className="text-sm text-brand-muted mt-1 max-w-2xl">{description}</p>}
       </div>
       {actions && <div className={cn("flex items-center gap-2 flex-wrap")}>{actions}</div>}

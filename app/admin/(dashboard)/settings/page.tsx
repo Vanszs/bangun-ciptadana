@@ -25,11 +25,11 @@ export default function AdminSettingsPage() {
           <CardContent className="space-y-3">
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-wider text-brand-muted">Email</p>
-              <p className="text-sm font-mono text-brand-text mt-0.5">admin@bangun-ciptadana.id</p>
+              <p className="text-sm font-mono text-brand-text mt-0.5">{process.env.ADMIN_EMAIL || "admin@bangun-ciptadana.id"}</p>
             </div>
             <div>
               <p className="text-[10px] font-semibold uppercase tracking-wider text-brand-muted">Password</p>
-              <p className="text-sm font-mono text-brand-text mt-0.5">AdminBC2024!</p>
+              <p className="text-sm font-mono text-brand-text mt-0.5">{process.env.ADMIN_PASSWORD ? "•".repeat(process.env.ADMIN_PASSWORD.length) : "••••••••••"}</p>
             </div>
             <div className="rounded-md bg-amber-50 border border-amber-200 p-3 flex items-start gap-2">
               <AlertCircle className="h-4 w-4 text-amber-600 shrink-0 mt-0.5" />

@@ -71,7 +71,7 @@ export default function MessagesInbox({ initial }: Props) {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-brand-muted" />
             <Input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Cari pesan..." className="pl-9 h-9" />
           </div>
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1" role="radiogroup" aria-label="Filter pesan">
             {([
               { key: "all", label: "Semua" },
               { key: "unread", label: "Belum dibaca" },
@@ -80,6 +80,8 @@ export default function MessagesInbox({ initial }: Props) {
               <button
                 key={f.key}
                 onClick={() => setFilter(f.key)}
+                role="radio"
+                aria-checked={filter === f.key}
                 className={cn(
                   "text-xs font-medium px-2.5 py-1 rounded-md transition-colors",
                   filter === f.key ? "bg-brand-primary text-white" : "text-brand-muted hover:bg-slate-100",

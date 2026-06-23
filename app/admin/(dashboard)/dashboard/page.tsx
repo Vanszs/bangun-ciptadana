@@ -47,7 +47,7 @@ export default async function AdminDashboardPage() {
           icon={MessageSquare}
           label={unread > 0 ? `Pesan (${unread} baru)` : "Pesan"}
           value={store.messages.length}
-          accent={unread > 0 ? "warning" : "primary"}
+          accent={unread > 0 ? "danger" : "primary"}
           href="/admin/messages"
         />
       </div>
