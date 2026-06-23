@@ -14,7 +14,7 @@ export default async function HomePage() {
   return (
     <div className="flex flex-col w-full bg-slate-50/50">
       {/* 1. HERO — full-bleed image with directional gradient backdrop behind text */}
-      <section className="relative overflow-hidden min-h-[540px] sm:min-h-[580px] lg:h-[600px]">
+      <section className="relative overflow-hidden min-h-[500px] sm:min-h-[520px] lg:h-[540px]">
         {/* Image — full-bleed background */}
         <Image
           src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1920&q=80"
@@ -84,22 +84,14 @@ export default async function HomePage() {
                 <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-brand-primary" aria-hidden="true" /> Tim Bersertifikat</span>
                 <span className="hidden sm:inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-brand-secondary" aria-hidden="true" /> Garansi Tertulis</span>
               </div>
-
-              {/* Alamat Kantor pill — visible in hero viewport */}
-              <div className="inline-flex items-center gap-2.5 mt-5 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-slate-200 text-xs">
-                <MapPin className="w-3.5 h-3.5 text-brand-secondary shrink-0" aria-hidden="true" />
-                <span className="uppercase tracking-wider text-[10px] font-semibold text-slate-300">Alamat Kantor</span>
-                <span className="h-3 w-px bg-white/20" aria-hidden="true" />
-                <span className="text-white font-medium truncate max-w-[280px] sm:max-w-[360px]">{profile.address}</span>
-              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. FLOATING INFO CARD — overlaps hero (~120px), fully visible in hero viewport */}
+      {/* 2. FLOATING INFO CARD — overlaps hero (~200px), pulled up for prominence */}
       <section className="relative z-30 px-4">
-        <div className="max-w-[1100px] mx-auto bg-white rounded-[20px] shadow-2xl border border-brand-border/60 p-8 md:p-10 -mt-[120px]">
+        <div className="max-w-[1100px] mx-auto bg-white rounded-[20px] shadow-2xl border border-brand-border/60 p-8 md:p-10 -mt-[200px]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:divide-x divide-brand-border">
             <div className="flex items-center gap-5 pb-6 md:pb-0">
               <div className="w-12 h-12 bg-brand-primary/8 rounded-lg flex items-center justify-center shrink-0">
