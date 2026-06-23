@@ -84,6 +84,14 @@ export default async function HomePage() {
                 <span className="inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-brand-primary" aria-hidden="true" /> Tim Bersertifikat</span>
                 <span className="hidden sm:inline-flex items-center gap-1.5"><span className="h-1.5 w-1.5 rounded-full bg-brand-secondary" aria-hidden="true" /> Garansi Tertulis</span>
               </div>
+
+              {/* Alamat Kantor pill — visible in hero viewport */}
+              <div className="inline-flex items-center gap-2.5 mt-5 px-4 py-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-slate-200 text-xs">
+                <MapPin className="w-3.5 h-3.5 text-brand-secondary shrink-0" aria-hidden="true" />
+                <span className="uppercase tracking-wider text-[10px] font-semibold text-slate-300">Alamat Kantor</span>
+                <span className="h-3 w-px bg-white/20" aria-hidden="true" />
+                <span className="text-white font-medium truncate max-w-[280px] sm:max-w-[360px]">{profile.address}</span>
+              </div>
             </div>
           </div>
         </div>
