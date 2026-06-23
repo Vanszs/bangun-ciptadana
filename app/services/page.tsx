@@ -1,7 +1,9 @@
 import HeroBanner from "@/components/HeroBanner";
-import { SERVICES_DATA } from "@/data/data";
+import { readStore } from "@/data/store";
 import { getServiceIcon } from "@/components/IconMapper";
 import { CheckCircle2 } from "lucide-react";
+
+export const dynamic = "force-dynamic";
 
 const WORKFLOW = [
   { step: "01", title: "Konsultasi & Survey", desc: "Analisis kebutuhan awal dan peninjauan langsung area lokasi proyek." },
@@ -10,7 +12,9 @@ const WORKFLOW = [
   { step: "04", title: "Serah Terima & Garansi", desc: "Pemeriksaan hasil akhir, serah terima, dan garansi pemeliharaan tertulis." },
 ];
 
-export default function ServicesPage() {
+export default async function ServicesPage() {
+  const store = await readStore();
+  const services = store.services;
   return (
     <div className="flex flex-col w-full">
       <HeroBanner title="Services" />
@@ -23,7 +27,7 @@ export default function ServicesPage() {
             <p className="text-brand-muted text-sm leading-relaxed">Layanan konstruksi profesional berskala komersial maupun hunian, disesuaikan kebutuhan proyek Anda.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {SERVICES_DATA.map((service, i) => (
+            {services.map((service, i) => (
               <div key={service.id} className={`bg-brand-bg p-6 rounded-md border border-brand-border/50 text-left flex gap-4 ${i === 0 ? "md:col-span-2" : ""}`}>
                 <div className="mt-0.5 text-brand-secondary shrink-0">{getServiceIcon(service.iconName)}</div>
                 <div className="flex flex-col justify-between flex-1">

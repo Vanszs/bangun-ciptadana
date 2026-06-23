@@ -1,6 +1,6 @@
 import HeroBanner from "@/components/HeroBanner";
 import ContactForm from "@/components/ContactForm";
-import { Phone, Mail, MessageSquare, Instagram, MapPin } from "lucide-react";
+import { Phone, Mail, MessageSquare, AtSign, MapPin } from "lucide-react";
 
 export default function ContactPage() {
   return (
@@ -38,7 +38,7 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Instagram className="w-4 h-4 text-brand-primary shrink-0" aria-hidden="true" />
+                  <AtSign className="w-4 h-4 text-brand-primary shrink-0" aria-hidden="true" />
                   <div>
                     <p className="text-[11px] font-medium text-brand-muted uppercase tracking-wide">Instagram</p>
                     <p className="text-brand-text font-semibold text-sm">@bangunciptadana</p>

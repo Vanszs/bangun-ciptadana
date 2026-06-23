@@ -1,7 +1,11 @@
 import HeroBanner from "@/components/HeroBanner";
 import ProjectFilter from "@/components/ProjectFilter";
+import { readStore } from "@/data/store";
 
-export default function ProjectsPage() {
+export const dynamic = "force-dynamic";
+
+export default async function ProjectsPage() {
+  const store = await readStore();
   return (
     <div className="flex flex-col w-full">
       <HeroBanner title="Projects" />
@@ -11,7 +15,7 @@ export default function ProjectsPage() {
           <p className="text-brand-muted text-sm leading-relaxed mb-8 max-w-lg mx-auto">
             Bukti komitmen konstruksi Bangun Ciptadana dalam mengawal pengerjaan bangunan dengan presisi tinggi.
           </p>
-          <ProjectFilter />
+          <ProjectFilter projects={store.projects} />
         </div>
       </section>
     </div>

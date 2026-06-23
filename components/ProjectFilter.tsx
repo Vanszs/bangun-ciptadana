@@ -1,19 +1,25 @@
 "use client";
 
-import { useState } from "react";
-import { PROJECTS_DATA } from "@/data/data";
+import { useState, useMemo } from "react";
 import { Plus, ArrowRight } from "lucide-react";
+import type { ProjectItem } from "@/data/types";
 
-const CATEGORIES = ["Semua", "Aluminium & Kaca", "Renovasi", "Interior", "Partisi", "Atap & Kanopi", "Kelistrikan", "Konstruksi Bangunan"];
+interface Props { projects: ProjectItem[]; }
 
-export default function ProjectFilter() {
+export default function ProjectFilter({ projects }: Props) {
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    projects.forEach((p) => set.add(p.category));
+    return ["Semua", ...Array.from(set)];
+  }, [projects]);
+
   const [selected, setSelected] = useState("Semua");
-  const filtered = selected === "Semua" ? PROJECTS_DATA : PROJECTS_DATA.filter((p) => p.category.toLowerCase() === selected.toLowerCase());
+  const filtered = selected === "Semua" ? projects : projects.filter((p) => p.category.toLowerCase() === selected.toLowerCase());
 
   return (
     <>
       <div className="flex flex-wrap items-center justify-center gap-2 mb-8" role="group" aria-label="Filter proyek">
-        {CATEGORIES.map((cat) => (
+        {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setSelected(cat)}

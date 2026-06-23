@@ -1,10 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
-import { SERVICES_DATA, STATS_DATA } from "@/data/data";
+import { readStore } from "@/data/store";
 import { getServiceIcon, getStatIcon } from "@/components/IconMapper";
 import { MapPin, Globe, ArrowRight, Phone, Headphones } from "lucide-react";
 
-export default function HomePage() {
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const store = await readStore();
+  const SERVICES_DATA = store.services;
+  const STATS_DATA = store.stats;
+  const profile = store.profile;
   return (
     <div className="flex flex-col w-full bg-slate-50/50">
       {/* 1. HERO SECTION - Split Layout, Bright Corporate look, height ~700-750px */}
@@ -18,13 +24,13 @@ export default function HomePage() {
           {/* Left Content (45%) */}
           <div className="text-left flex flex-col justify-center">
             <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-extrabold tracking-tight leading-[1.1] text-slate-900 uppercase">
-              BANGUN CIPTADANA
+              {profile.name}
             </h1>
             <p className="text-sm sm:text-base font-bold text-brand-secondary tracking-widest uppercase mt-3 mb-5">
-              Your Real Partner
+              {profile.tagline}
             </p>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed max-w-md">
-              Solusi konstruksi profesional untuk bangunan komersial, residensial, renovasi, interior, aluminium, kaca, dan pekerjaan sipil dengan kualitas premium dan ketepatan waktu.
+              {profile.description}
             </p>
             
             {/* Two CTA Buttons below */}
@@ -68,7 +74,7 @@ export default function HomePage() {
               </div>
               <div className="text-left">
                 <h4 className="text-[11px] font-semibold text-brand-muted uppercase tracking-wider mb-1">Alamat Kantor</h4>
-                <p className="text-[#0F172A] font-semibold text-sm sm:text-base">Jl. XXXXXXXX No. XX, Kota XXXXX</p>
+                <p className="text-[#0F172A] font-semibold text-sm sm:text-base">{profile.address}</p>
               </div>
             </div>
             <div className="flex items-center gap-5 pt-6 md:pt-0 md:pl-8">
@@ -77,7 +83,7 @@ export default function HomePage() {
               </div>
               <div className="text-left">
                 <h4 className="text-[11px] font-semibold text-brand-secondary uppercase tracking-wider mb-1">Area Layanan</h4>
-                <p className="text-[#0F172A] font-semibold text-sm sm:text-base">Melayani proyek konstruksi dan renovasi di seluruh Indonesia.</p>
+                <p className="text-[#0F172A] font-semibold text-sm sm:text-base">{profile.serviceArea}</p>
               </div>
             </div>
           </div>

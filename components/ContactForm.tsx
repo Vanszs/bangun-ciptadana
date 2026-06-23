@@ -42,16 +42,31 @@ export default function ContactForm() {
     return e;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const v = validate();
     setErrors(v);
     if (Object.keys(v).length > 0) return;
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
+    try {
+      const res = await fetch("/api/admin/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.nama,
+          email: formData.email || "-",
+          phone: formData.phone,
+          subject: formData.jobType,
+          message: formData.pesan || "(Tidak ada pesan tambahan)",
+        }),
+      });
+      if (!res.ok) throw new Error();
       setSubmitted(true);
-    }, 600);
+    } catch {
+      setErrors({ nama: "Gagal mengirim, coba lagi." });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const handleReset = () => {
