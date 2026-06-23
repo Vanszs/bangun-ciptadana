@@ -26,9 +26,9 @@ export default async function HomePage() {
           className="object-cover object-center"
         />
 
-        {/* Gradient overlay — directional, dark left (text) → transparent right (image) */}
+        {/* Gradient overlay — left 40% solid, fading to transparent on right (image visible) */}
         <div
-          className="absolute inset-0 bg-gradient-to-b from-slate-900/85 via-slate-900/70 to-slate-900/55 lg:bg-gradient-to-r lg:from-slate-900/85 lg:via-slate-900/55 lg:to-transparent"
+          className="absolute inset-0 lg:bg-[linear-gradient(to_right,#0F172A_0%,#0F172A_38%,rgba(15,23,42,0.65)_55%,rgba(15,23,42,0.3)_75%,transparent_100%)] bg-[linear-gradient(to_bottom,#0F172Acc_0%,#0F172A99_60%,#0F172A66_100%)]"
           aria-hidden="true"
         />
 
