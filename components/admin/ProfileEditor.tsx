@@ -95,7 +95,7 @@ export default function ProfileEditor({ initial }: Props) {
         </div>
       </div>
 
-      <div className="rounded-lg border border-brand-border bg-gradient-to-br from-brand-primary/5 to-brand-secondary/5 p-5 h-fit">
+      <div className="lg:sticky lg:top-6 lg:self-start rounded-lg border border-brand-border bg-gradient-to-br from-brand-primary/5 to-brand-secondary/5 p-5">
         <h3 className="text-sm font-semibold text-brand-text">Preview Singkat</h3>
         <p className="text-xs text-brand-muted mt-1">Tampilan di landing page</p>
         <div className="mt-4 space-y-3">

@@ -100,6 +100,9 @@ export default function ServicesTable({ initial }: Props) {
         <p className="text-xs text-brand-muted ml-auto">
           Total: <strong className="text-brand-text">{filtered.length}</strong> dari {items.length}
         </p>
+        <Button onClick={() => setCreating(true)}>
+          <Plus className="h-4 w-4" /> Tambah Layanan
+        </Button>
       </div>
 
       <div className="rounded-lg border border-brand-border bg-white overflow-hidden">

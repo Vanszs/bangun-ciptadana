@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -12,7 +13,7 @@ import { Select } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/toast";
-import { Pencil, Trash2, Loader2, Search, Image as ImageIcon, X } from "lucide-react";
+import { Pencil, Trash2, Loader2, Search, Image as ImageIcon, X, Plus } from "lucide-react";
 import type { ProjectItem } from "@/data/types";
 
 const CATEGORIES = [
@@ -98,6 +99,9 @@ export default function ProjectsTable({ initial }: Props) {
         <p className="text-xs text-brand-muted ml-auto">
           Total: <strong className="text-brand-text">{filtered.length}</strong> dari {items.length}
         </p>
+        <Button onClick={() => setCreating(true)}>
+          <Plus className="h-4 w-4" /> Tambah Proyek
+        </Button>
       </div>
 
       <div className="rounded-lg border border-brand-border bg-white overflow-hidden">
@@ -122,9 +126,8 @@ export default function ProjectsTable({ initial }: Props) {
               filtered.map((p) => (
                 <TableRow key={p.id}>
                   <TableCell>
-                    <div className="h-10 w-14 rounded-md overflow-hidden bg-slate-100 border border-brand-border">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={p.imageUrl} alt={p.title} className="h-full w-full object-cover" />
+                    <div className="relative h-10 w-14 rounded-md overflow-hidden bg-slate-100 border border-brand-border">
+                      <Image src={p.imageUrl} alt={p.title} fill unoptimized sizes="56px" className="object-cover" />
                     </div>
                   </TableCell>
                   <TableCell>
@@ -254,8 +257,7 @@ function ProjectFormDialog({
               <Label>Preview</Label>
               <div className="relative h-32 rounded-md overflow-hidden border border-brand-border bg-slate-50">
                 {url ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={url} alt="preview" className="absolute inset-0 h-full w-full object-cover" onError={(e) => ((e.target as HTMLImageElement).style.display = "none")} />
+                  <Image src={url} alt="preview" fill unoptimized sizes="(max-width: 640px) 100vw, 50vw" className="object-cover" onError={(e) => ((e.target as HTMLImageElement).style.display = "none")} />
                 ) : (
                   <div className="h-full w-full flex items-center justify-center text-brand-muted text-xs">
                     <ImageIcon className="h-5 w-5 mr-2" /> Masukkan URL gambar

@@ -82,15 +82,18 @@ function NavGroup({ group, active, onNavigate }: { group: typeof NAV_GROUPS[numb
               onClick={onNavigate}
               aria-current={isActive ? "page" : undefined}
               className={cn(
-                "flex items-center gap-2.5 px-3 h-9 rounded-md text-sm font-medium transition-colors",
+                "group/navitem relative flex items-center gap-2.5 px-3 h-9 rounded-md text-sm font-medium transition-colors",
                 isActive
-                  ? "bg-brand-primary text-white shadow-sm"
-                  : "text-brand-text hover:bg-slate-100 hover:text-brand-primary",
+                  ? "bg-slate-100 text-brand-primary"
+                  : "text-brand-text hover:bg-slate-50 hover:text-brand-primary",
               )}
             >
-              <Icon className="h-4 w-4" aria-hidden="true" />
+              {isActive && (
+                <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 rounded-r-full bg-brand-primary" aria-hidden="true" />
+              )}
+              <Icon className={cn("h-4 w-4", isActive ? "text-brand-primary" : "text-brand-muted group-hover/navitem:text-brand-primary")} aria-hidden="true" />
               <span className="flex-1">{item.label}</span>
-              {isActive && <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />}
+              {isActive && <ChevronRight className="h-3.5 w-3.5 text-brand-primary" aria-hidden="true" />}
             </Link>
           );
         })}

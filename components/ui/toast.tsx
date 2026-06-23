@@ -26,17 +26,17 @@ export function useToast() {
 }
 
 const iconMap: Record<ToastVariant, React.ReactNode> = {
-  success: <CheckCircle2 className="h-5 w-5 text-emerald-600" />,
-  error: <XCircle className="h-5 w-5 text-red-600" />,
-  warning: <AlertTriangle className="h-5 w-5 text-amber-600" />,
-  info: <Info className="h-5 w-5 text-brand-primary" />,
+  success: <CheckCircle2 className="h-5 w-5 text-emerald-600" aria-hidden="true" />,
+  error: <XCircle className="h-5 w-5 text-red-600" aria-hidden="true" />,
+  warning: <AlertTriangle className="h-5 w-5 text-amber-600" aria-hidden="true" />,
+  info: <Info className="h-5 w-5 text-brand-primary" aria-hidden="true" />,
 };
 
-const borderMap: Record<ToastVariant, string> = {
-  success: "border-l-4 border-l-emerald-500",
-  error: "border-l-4 border-l-red-500",
-  warning: "border-l-4 border-l-amber-500",
-  info: "border-l-4 border-l-brand-primary",
+const bgMap: Record<ToastVariant, string> = {
+  success: "bg-emerald-50/70",
+  error: "bg-red-50/70",
+  warning: "bg-amber-50/70",
+  info: "bg-brand-primary/5",
 };
 
 export function ToastProvider({ children }: { children: React.ReactNode }) {
@@ -59,11 +59,11 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             key={item.id}
             role="status"
             className={cn(
-              "rounded-md bg-white shadow-lg border border-brand-border p-4 flex items-start gap-3",
-              borderMap[item.variant],
+              "rounded-md bg-white shadow-md border border-brand-border p-4 flex items-start gap-3 overflow-hidden",
+              bgMap[item.variant],
             )}
           >
-            <div className="shrink-0 mt-0.5">{iconMap[item.variant]}</div>
+            <div className="shrink-0 mt-0.5 rounded-full bg-white p-0.5 shadow-sm">{iconMap[item.variant]}</div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-semibold text-brand-text">{item.title}</p>
               {item.description && <p className="text-xs text-brand-muted mt-0.5">{item.description}</p>}
@@ -73,7 +73,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               className="text-brand-muted hover:text-brand-text"
               aria-label="Dismiss"
             >
-              <X className="h-4 w-4" />
+              <X className="h-4 w-4" aria-hidden="true" />
             </button>
           </div>
         ))}

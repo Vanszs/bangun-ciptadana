@@ -21,12 +21,12 @@ const TableBody = React.forwardRef<HTMLTableSectionElement, React.HTMLAttributes
 TableBody.displayName = "TableBody";
 
 const TableRow = React.forwardRef<HTMLTableRowElement, React.HTMLAttributes<HTMLTableRowElement>>(({ className, ...props }, ref) => (
-  <tr ref={ref} className={cn("border-b border-brand-border transition-colors hover:bg-slate-50/60 data-[state=selected]:bg-slate-50", className)} {...props} />
+  <tr ref={ref} className={cn("border-b border-brand-border transition-colors even:bg-slate-50/40 hover:bg-slate-100/60 data-[state=selected]:bg-slate-100", className)} {...props} />
 ));
 TableRow.displayName = "TableRow";
 
 const TableHead = React.forwardRef<HTMLTableCellElement, React.ThHTMLAttributes<HTMLTableCellElement>>(({ className, ...props }, ref) => (
-  <th ref={ref} className={cn("h-10 px-4 text-left align-middle text-[11px] font-semibold uppercase tracking-wider text-brand-muted", className)} {...props} />
+  <th ref={ref} className={cn("h-10 px-4 text-left align-middle text-[11px] font-semibold uppercase tracking-wider text-brand-muted bg-slate-50/70 sticky top-0 z-10", className)} {...props} />
 ));
 TableHead.displayName = "TableHead";
 

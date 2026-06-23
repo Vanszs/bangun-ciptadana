@@ -14,7 +14,7 @@ export default async function AdminMessagesPage() {
     <div className="p-6 lg:p-8 space-y-6">
       <AdminPageHeader
         title="Pesan Masuk"
-        description="Pesan dari formulir kontak di landing page. Tandai sudah dibaca atau hapus."
+        description="Pesan formulir kontak dari landing page."
       />
 
       <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">

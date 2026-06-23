@@ -3,6 +3,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -59,8 +60,7 @@ export default function TeamEditor({ initial }: Props) {
         {items.map((m) => (
           <div key={m.id} className="rounded-lg border border-brand-border bg-white p-4 text-center">
             <div className="relative h-20 w-20 mx-auto rounded-full overflow-hidden border-2 border-brand-border bg-slate-100">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={m.imageUrl} alt={m.name} className="h-full w-full object-cover" />
+              <Image src={m.imageUrl} alt={m.name} fill unoptimized sizes="80px" className="object-cover" />
             </div>
             <p className="text-sm font-semibold text-brand-text mt-3 truncate">{m.name}</p>
             <p className="text-xs text-brand-muted mt-0.5 truncate">{m.position}</p>

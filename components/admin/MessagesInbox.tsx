@@ -36,6 +36,12 @@ export default function MessagesInbox({ initial }: Props) {
     });
   }, [items, q, filter]);
 
+  const counts = useMemo(() => ({
+    all: items.length,
+    unread: items.filter((m) => !m.read).length,
+    read: items.filter((m) => m.read).length,
+  }), [items]);
+
   async function markRead(id: string) {
     const res = await fetch(`/api/admin/messages/${id}`, { method: "PATCH" });
     if (res.ok) {
@@ -83,11 +89,19 @@ export default function MessagesInbox({ initial }: Props) {
                 role="radio"
                 aria-checked={filter === f.key}
                 className={cn(
-                  "text-xs font-medium px-2.5 py-1 rounded-md transition-colors",
-                  filter === f.key ? "bg-brand-primary text-white" : "text-brand-muted hover:bg-slate-100",
+                  "inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-md transition-colors",
+                  filter === f.key
+                    ? "bg-slate-100 text-brand-text"
+                    : "text-brand-muted hover:bg-slate-50 hover:text-brand-text",
                 )}
               >
                 {f.label}
+                <span className={cn(
+                  "inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-bold",
+                  filter === f.key ? "bg-brand-primary text-white" : "bg-slate-200 text-brand-muted",
+                )}>
+                  {counts[f.key]}
+                </span>
               </button>
             ))}
           </div>

@@ -2,6 +2,7 @@ import { readStore } from "@/data/store";
 import AdminPageHeader from "@/components/admin/AdminPageHeader";
 import AdminKpiCard from "@/components/admin/AdminKpiCard";
 import Link from "next/link";
+import Image from "next/image";
 import { Briefcase, FolderKanban, Users, MessageSquare, ArrowUpRight, Mail, Phone, Calendar, User } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -162,8 +163,7 @@ export default async function AdminDashboardPage() {
           {recentProjects.map((p) => (
             <div key={p.id} className="rounded-md border border-brand-border overflow-hidden bg-white">
               <div className="relative aspect-[4/3] bg-slate-100">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.imageUrl} alt={p.title} className="absolute inset-0 h-full w-full object-cover" />
+                <Image src={p.imageUrl} alt={p.title} fill unoptimized sizes="(max-width: 640px) 50vw, 25vw" className="object-cover" />
               </div>
               <div className="p-3">
                 <Badge variant="secondary" className="mb-1.5">{p.category}</Badge>

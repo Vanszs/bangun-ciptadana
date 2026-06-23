@@ -10,7 +10,7 @@ export default function AdminSettingsPage() {
     <div className="p-6 lg:p-8 space-y-6">
       <AdminPageHeader
         title="Pengaturan"
-        description="Konfigurasi sistem, kredensial admin, dan informasi teknis."
+        description="Konfigurasi sistem dan informasi teknis."
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
