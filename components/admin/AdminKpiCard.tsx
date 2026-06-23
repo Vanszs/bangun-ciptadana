@@ -11,7 +11,6 @@ interface AdminKpiCardProps {
   delta?: string;
   trend?: "up" | "down" | "flat";
 }
-
 const accentStyles: Record<NonNullable<AdminKpiCardProps["accent"]>, { icon: string; bg: string }> = {
   primary: { icon: "text-brand-primary", bg: "bg-brand-primary/10" },
   secondary: { icon: "text-brand-secondary-dark", bg: "bg-brand-secondary/15" },
@@ -48,7 +47,6 @@ export default function AdminKpiCard({ icon: Icon, label, value, href, accent = 
             <p className="mt-1.5 inline-flex items-center gap-1 text-[11px] font-semibold">
               {TrendIcon && <TrendIcon className={cn("h-3 w-3", trendStyles[trend!].color)} aria-hidden="true" />}
               <span className={trend ? trendStyles[trend].color : "text-brand-muted"}>{delta}</span>
-              <span className="text-brand-muted font-normal">vs periode lalu</span>
             </p>
           )}
         </div>

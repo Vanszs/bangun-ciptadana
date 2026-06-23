@@ -3,7 +3,7 @@ import AdminPageHeader from "@/components/admin/AdminPageHeader";
 import AdminKpiCard from "@/components/admin/AdminKpiCard";
 import Link from "next/link";
 import Image from "next/image";
-import { Briefcase, FolderKanban, Users, MessageSquare, ArrowUpRight, Mail, Phone, Calendar, User } from "lucide-react";
+import { Briefcase, FolderKanban, Users, MessageSquare, ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -13,7 +13,14 @@ export default async function AdminDashboardPage() {
   const store = await readStore();
   const unread = store.messages.filter((m) => !m.read).length;
   const recent = store.messages.slice(0, 5);
-  const recentProjects = store.projects.slice(0, 4);
+  const recentProjects = store.projects.slice(0, 3);
+
+  const categoryCounts = store.projects.reduce<Record<string, number>>((acc, p) => {
+    acc[p.category] = (acc[p.category] ?? 0) + 1;
+    return acc;
+  }, {});
+  const categoryEntries = Object.entries(categoryCounts).sort(([, a], [, b]) => b - a);
+  const totalProjects = store.projects.length || 1;
 
   return (
     <div className="p-6 lg:p-8 space-y-6">
@@ -29,6 +36,8 @@ export default async function AdminDashboardPage() {
           value={store.services.length}
           accent="primary"
           href="/admin/services"
+          delta={`${store.services.length} aktif`}
+          trend="flat"
         />
         <AdminKpiCard
           icon={FolderKanban}
@@ -36,6 +45,8 @@ export default async function AdminDashboardPage() {
           value={store.projects.length}
           accent="secondary"
           href="/admin/projects"
+          delta={`${categoryEntries.length} kategori`}
+          trend="flat"
         />
         <AdminKpiCard
           icon={Users}
@@ -50,6 +61,8 @@ export default async function AdminDashboardPage() {
           value={store.messages.length}
           accent={unread > 0 ? "danger" : "primary"}
           href="/admin/messages"
+          delta={unread > 0 ? `${unread} belum dibaca` : "Semua terbaca"}
+          trend={unread > 0 ? "up" : "flat"}
         />
       </div>
 
@@ -101,48 +114,43 @@ export default async function AdminDashboardPage() {
           </div>
         </div>
 
-        {/* Quick links */}
-        <div className="space-y-4">
-          <div className="rounded-lg border border-brand-border bg-white p-5">
-            <h3 className="text-sm font-semibold text-brand-text mb-3">Aksi Cepat</h3>
-            <div className="space-y-2">
-              <Button asChild variant="outline" className="w-full justify-start">
-                <Link href="/admin/services"><Briefcase className="h-4 w-4" /> Tambah Layanan</Link>
-              </Button>
-              <Button asChild variant="outline" className="w-full justify-start">
-                <Link href="/admin/projects"><FolderKanban className="h-4 w-4" /> Tambah Proyek</Link>
-              </Button>
-              <Button asChild variant="outline" className="w-full justify-start">
-                <Link href="/admin/profile"><User className="h-4 w-4" /> Edit Profil</Link>
-              </Button>
+        {/* Project distribution */}
+        <div className="rounded-lg border border-brand-border bg-white p-5">
+          <div className="flex items-center justify-between mb-4">
+            <div>
+              <h3 className="text-sm font-semibold text-brand-text">Distribusi Proyek</h3>
+              <p className="text-xs text-brand-muted mt-0.5">Per kategori</p>
             </div>
+            <FolderKanban className="h-4 w-4 text-brand-muted" aria-hidden="true" />
           </div>
-          <div className="rounded-lg border border-brand-border bg-gradient-to-br from-brand-primary/5 to-brand-secondary/5 p-5">
-            <h3 className="text-sm font-semibold text-brand-text">Info Perusahaan</h3>
-            <dl className="mt-3 space-y-2 text-xs">
-              <div className="flex items-start gap-2">
-                <Calendar className="h-3.5 w-3.5 text-brand-muted mt-0.5 shrink-0" />
-                <div>
-                  <dt className="text-brand-muted">Berdiri sejak</dt>
-                  <dd className="font-semibold text-brand-text">{store.profile.establishedYear}</dd>
-                </div>
-              </div>
-              <div className="flex items-start gap-2">
-                <Phone className="h-3.5 w-3.5 text-brand-muted mt-0.5 shrink-0" />
-                <div>
-                  <dt className="text-brand-muted">Telepon</dt>
-                  <dd className="font-semibold text-brand-text">{store.profile.phone}</dd>
-                </div>
-              </div>
-              <div className="flex items-start gap-2">
-                <Mail className="h-3.5 w-3.5 text-brand-muted mt-0.5 shrink-0" />
-                <div>
-                  <dt className="text-brand-muted">Email</dt>
-                  <dd className="font-semibold text-brand-text break-all">{store.profile.email}</dd>
-                </div>
-              </div>
-            </dl>
-          </div>
+          {categoryEntries.length === 0 ? (
+            <p className="text-sm text-brand-muted">Belum ada proyek.</p>
+          ) : (
+            <div className="space-y-3">
+              {categoryEntries.map(([cat, count]) => {
+                const pct = Math.round((count / totalProjects) * 100);
+                return (
+                  <div key={cat}>
+                    <div className="flex items-center justify-between text-xs mb-1">
+                      <span className="font-medium text-brand-text">{cat}</span>
+                      <span className="text-brand-muted tabular-nums">{count} · {pct}%</span>
+                    </div>
+                    <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
+                      <div
+                        className="h-full bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full transition-all"
+                        style={{ width: `${pct}%` }}
+                        role="progressbar"
+                        aria-valuenow={pct}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                        aria-label={`${cat}: ${pct}%`}
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </div>
 
@@ -151,7 +159,7 @@ export default async function AdminDashboardPage() {
         <div className="flex items-center justify-between p-5 border-b border-brand-border">
           <div>
             <h3 className="text-sm font-semibold text-brand-text">Proyek Terbaru</h3>
-            <p className="text-xs text-brand-muted mt-0.5">4 proyek paling baru di landing page</p>
+            <p className="text-xs text-brand-muted mt-0.5">3 proyek paling baru di landing page</p>
           </div>
           <Button asChild variant="ghost" size="sm">
             <Link href="/admin/projects" className="text-xs">
@@ -159,17 +167,18 @@ export default async function AdminDashboardPage() {
             </Link>
           </Button>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
+        <div className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-brand-border">
           {recentProjects.map((p) => (
-            <div key={p.id} className="rounded-md border border-brand-border overflow-hidden bg-white">
-              <div className="relative aspect-[4/3] bg-slate-100">
-                <Image src={p.imageUrl} alt={p.title} fill unoptimized sizes="(max-width: 640px) 50vw, 25vw" className="object-cover" />
+            <Link key={p.id} href="/admin/projects" className="group block">
+              <div className="relative aspect-[16/9] bg-slate-100">
+                <Image src={p.imageUrl} alt={p.title} fill unoptimized sizes="(max-width: 640px) 100vw, 33vw" className="object-cover transition-transform group-hover:scale-[1.02]" />
               </div>
-              <div className="p-3">
+              <div className="p-4">
                 <Badge variant="secondary" className="mb-1.5">{p.category}</Badge>
-                <p className="text-xs font-semibold text-brand-text line-clamp-1">{p.title}</p>
+                <p className="text-sm font-semibold text-brand-text line-clamp-1 group-hover:text-brand-primary transition-colors">{p.title}</p>
+                <p className="text-xs text-brand-muted mt-1 line-clamp-2">{p.description}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
