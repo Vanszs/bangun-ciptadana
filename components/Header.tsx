@@ -32,13 +32,43 @@ export default function Header() {
       id="app-header"
     >
       {/* Brand Logo */}
-      <Link
-        href="/"
-        className="hover:opacity-90 transition-opacity focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded"
-        id="brand-logo-container"
-      >
-        <Logo variant={isHome ? "dark" : "light"} showText />
-      </Link>
+      {isHome ? (
+        <Link
+          href="/"
+          className="group relative flex items-center justify-center bg-white/95 hover:bg-white px-5 h-12 rounded-b-2xl shadow-md transition-colors focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2"
+          id="brand-logo-container"
+        >
+          {/* Left outward curve mask */}
+          <svg
+            className="absolute top-0 -left-6 w-6 h-6 text-white/95 group-hover:text-white"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M 0 0 C 16 0, 24 8, 24 24 L 24 0 Z" />
+          </svg>
+
+          <Logo variant="light" showText={false} size="sm" />
+
+          {/* Right outward curve mask */}
+          <svg
+            className="absolute top-0 -right-6 w-6 h-6 text-white/95 group-hover:text-white"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M 24 0 C 8 0, 0 8, 0 24 L 0 0 Z" />
+          </svg>
+        </Link>
+      ) : (
+        <Link
+          href="/"
+          className="hover:opacity-90 transition-opacity focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded"
+          id="brand-logo-container"
+        >
+          <Logo variant="light" showText />
+        </Link>
+      )}
 
       {/* Floating Center Menu */}
       <div className="hidden md:flex relative h-full items-start pt-0" id="center-menu-wrapper">

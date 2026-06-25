@@ -29,7 +29,7 @@ const SLIDES: Slide[] = [
     titleLight: "Konstruksi",
     titleItalic: "Berkelas",
     subText: "Material SNI, proses transparan, dan garansi tertulis menjadi standar setiap proyek yang kami kerjakan.",
-    rightHeading: " timeline Tepat",
+    rightHeading: "Timeline Tepat",
     rightText: "Manajemen proyek profesional memastikan pembangunan berjalan sesuai rencana anggaran dan waktu yang disepakati.",
   },
   {
@@ -44,17 +44,14 @@ const SLIDES: Slide[] = [
 
 export default function HomeHero() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
 
   const handleNext = useCallback(() => {
-    setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % SLIDES.length);
   }, []);
 
   const handleGoTo = useCallback((index: number) => {
-    setDirection(index > currentIndex ? 1 : -1);
     setCurrentIndex(index);
-  }, [currentIndex]);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(handleNext, 8000);
@@ -64,9 +61,9 @@ export default function HomeHero() {
   const currentSlide = SLIDES[currentIndex];
 
   return (
-    <section className="relative w-full h-[100vh] min-h-[650px] overflow-hidden bg-black" id="hero-section">
+    <section className="relative w-full h-screen min-h-[720px] overflow-hidden bg-black" id="hero-section">
       {/* Background carousel */}
-      <div className="absolute inset-0 z-0" id="hero-background-carousel">
+      <div className="absolute inset-0 z-0">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.div
             key={currentIndex}
@@ -85,52 +82,56 @@ export default function HomeHero() {
               className="object-cover object-center"
               unoptimized
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-black/60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-black/60" />
           </motion.div>
         </AnimatePresence>
       </div>
 
-      {/* Content */}
-      <div className="relative z-10 w-full h-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col justify-between pt-28 pb-32" id="hero-content-container">
-        {/* Top left quote */}
-        <div className="flex justify-start w-full" id="hero-quote-wrapper">
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={currentIndex}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="font-sans text-[11px] md:text-xs font-normal text-zinc-300 leading-relaxed tracking-wide max-w-[280px] md:max-w-xs mt-4"
-            >
-              {currentSlide.subText}
-            </motion.p>
-          </AnimatePresence>
+      {/* Content — locked to a 12-column layout system */}
+      <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-36 flex flex-col">
+        {/* Top row: microcopy anchored to the same left column as headline */}
+        <div className="grid grid-cols-12 gap-x-6">
+          <div className="col-span-12 lg:col-span-5">
+            <AnimatePresence mode="wait">
+              <motion.p
+                key={`sub-${currentIndex}`}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="font-sans text-[11px] md:text-xs font-normal text-zinc-200 leading-relaxed tracking-wide max-w-[320px]"
+              >
+                {currentSlide.subText}
+              </motion.p>
+            </AnimatePresence>
+          </div>
         </div>
 
-        {/* Main grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end w-full" id="hero-grid">
-          {/* Left: headings + CTA */}
-          <div className="lg:col-span-8 flex flex-col items-start" id="hero-left-col">
+        {/* Flexible spacer pushes bottom content down */}
+        <div className="flex-1" />
+
+        {/* Bottom row: headline + CTA left, description right */}
+        <div className="grid grid-cols-12 gap-x-6 gap-y-10 items-end">
+          {/* Left column: headline + inline CTA */}
+          <div className="col-span-12 lg:col-span-8">
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentIndex}
+                key={`main-${currentIndex}`}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
                 variants={{
                   hidden: { opacity: 0 },
-                  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-                  exit: { opacity: 0, transition: { duration: 0.4 } },
+                  visible: { opacity: 1, transition: { staggerChildren: 0.12 } },
+                  exit: { opacity: 0, transition: { duration: 0.35 } },
                 }}
-                className="w-full"
               >
                 <motion.h1
                   variants={{
                     hidden: { opacity: 0, y: 25 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: "easeOut" } },
                   }}
-                  className="font-sans font-bold text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-none uppercase"
+                  className="font-sans font-bold text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.9] uppercase"
                 >
                   {currentSlide.titleLight}
                 </motion.h1>
@@ -138,17 +139,17 @@ export default function HomeHero() {
                 <motion.div
                   variants={{
                     hidden: { opacity: 0, y: 25 },
-                    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+                    visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: "easeOut" } },
                   }}
-                  className="flex flex-wrap items-center gap-4 mt-2 sm:mt-4"
+                  className="flex flex-wrap items-center gap-4 mt-1"
                 >
-                  <span className="font-serif italic font-normal text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-none">
+                  <span className="font-serif italic font-normal text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
                     {currentSlide.titleItalic}
                   </span>
 
                   <Link
                     href="/contact"
-                    className="group flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full border border-white/30 hover:border-white/80 bg-black/20 hover:bg-white/10 text-white font-sans text-xs sm:text-sm font-medium transition-all duration-300 shadow-lg"
+                    className="group inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full border border-white/30 hover:border-white/80 bg-black/20 hover:bg-white/10 backdrop-blur-sm text-white font-sans text-xs sm:text-sm font-medium transition-all duration-300 shadow-lg"
                   >
                     <span>Hubungi Kami</span>
                     <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-950 shadow-sm group-hover:translate-x-1 transition-transform duration-300">
@@ -160,16 +161,16 @@ export default function HomeHero() {
             </AnimatePresence>
           </div>
 
-          {/* Right: mini section */}
-          <div className="lg:col-span-4 flex flex-col items-start lg:items-end text-left lg:text-right" id="hero-right-col">
+          {/* Right column: description block, aligned to right edge */}
+          <div className="col-span-12 lg:col-span-4 flex lg:justify-end">
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentIndex}
+                key={`desc-${currentIndex}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
-                className="max-w-[280px] sm:max-w-xs"
+                className="max-w-[320px] text-left lg:text-right"
               >
                 <h3 className="font-sans font-bold text-white text-lg sm:text-xl md:text-2xl tracking-tight leading-snug mb-2">
                   {currentSlide.rightHeading}
@@ -184,7 +185,7 @@ export default function HomeHero() {
       </div>
 
       {/* Bottom SVG organic wave */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 w-full select-none pointer-events-none" id="hero-bottom-curve-wrapper">
+      <div className="absolute bottom-0 left-0 right-0 z-20 w-full select-none pointer-events-none">
         <svg
           className="w-full h-[90px] sm:h-[110px] md:h-[130px] lg:h-[140px] text-brand-bg"
           viewBox="0 0 1440 140"

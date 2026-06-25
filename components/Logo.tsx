@@ -4,17 +4,22 @@ interface LogoProps {
   className?: string;
   variant?: "light" | "dark" | "footer";
   showText?: boolean;
+  size?: "sm" | "md" | "lg";
 }
 
-export default function Logo({ className = "", variant = "light", showText = true }: LogoProps) {
+export default function Logo({ className = "", variant = "light", showText = true, size = "md" }: LogoProps) {
   const isFooter = variant === "footer";
   const isDark = variant === "dark";
   const textColor = isFooter || isDark ? "text-white" : "text-brand-primary-dark";
   const subtextColor = isFooter || isDark ? "text-white/80" : "text-brand-secondary-dark";
 
+  const iconSize = size === "sm" ? "h-7 w-7" : size === "lg" ? "h-12 w-12" : "h-10 w-10";
+  const titleSize = size === "sm" ? "text-sm" : size === "lg" ? "text-xl" : "text-lg";
+  const subtitleSize = size === "sm" ? "text-[9px]" : size === "lg" ? "text-xs" : "text-xs";
+
   return (
     <div className={`flex items-center gap-3 select-none ${className}`}>
-      <svg className="h-10 w-10 shrink-0" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className={`${iconSize} shrink-0`} viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M210 130L30 240H90V380H220V240L210 130Z" fill="var(--color-brand-primary)" />
         <path d="M90 240L210 130L215 260H220V380H90V240Z" fill="var(--color-brand-primary-dark)" opacity="0.15" />
         <path d="M200 120H180V380H220V240L200 120Z" fill="var(--color-brand-primary)" />
@@ -27,8 +32,8 @@ export default function Logo({ className = "", variant = "light", showText = tru
       </svg>
       {showText && (
         <div className="flex flex-col leading-tight">
-          <span className={`font-extrabold tracking-wider text-lg ${textColor}`}>BANGUN</span>
-          <span className={`font-semibold tracking-widest text-xs ${subtextColor}`}>CIPTADANA</span>
+          <span className={`font-extrabold tracking-wider ${titleSize} ${textColor}`}>BANGUN</span>
+          <span className={`font-semibold tracking-widest ${subtitleSize} ${subtextColor}`}>CIPTADANA</span>
         </div>
       )}
     </div>

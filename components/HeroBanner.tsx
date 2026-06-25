@@ -4,17 +4,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 
-export default function HeroBanner({
-  title,
-  titleItalic,
-  backgroundImage,
-}: {
+interface HeroBannerProps {
   title: string;
   titleItalic?: string;
   backgroundImage?: string;
-}) {
+}
+
+export default function HeroBanner({ title, titleItalic, backgroundImage }: HeroBannerProps) {
+  const titleWords = title.split(" ");
+  const firstWord = titleWords[0];
+  const restWords = titleWords.slice(1).join(" ");
+
   return (
-    <div className="relative h-[60vh] min-h-[420px] max-h-[620px] flex items-end overflow-hidden bg-black">
+    <div className="relative h-[60vh] min-h-[420px] max-h-[620px] flex items-center justify-center overflow-hidden bg-black">
       <Image
         src={
           backgroundImage ||
@@ -29,14 +31,15 @@ export default function HeroBanner({
       />
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-black/70 z-10" />
 
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 pb-16 md:pb-20">
+      <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
+          className="flex flex-col items-center"
         >
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-xs text-zinc-300 mb-4">
+          <div className="flex items-center justify-center gap-2 text-xs text-zinc-300 mb-5">
             <Link href="/" className="hover:text-white transition-colors">
               Beranda
             </Link>
@@ -44,13 +47,18 @@ export default function HeroBanner({
             <span className="text-white font-medium">{title}</span>
           </div>
 
-          {/* Title */}
-          <h1 className="text-white leading-none flex flex-wrap items-center gap-x-4">
+          {/* Title — centered */}
+          <h1 className="text-white leading-none flex flex-wrap items-center justify-center gap-x-4">
             <span className="font-sans font-bold uppercase tracking-tight text-4xl md:text-6xl lg:text-7xl">
-              {title}
+              {firstWord}
             </span>
+            {restWords && (
+              <span className="font-serif italic font-normal text-4xl md:text-6xl lg:text-7xl text-white/90">
+                {restWords}
+              </span>
+            )}
             {titleItalic && (
-              <span className="font-serif italic font-normal text-4xl md:text-6xl lg:text-7xl text-white/85">
+              <span className="font-serif italic font-normal text-4xl md:text-6xl lg:text-7xl text-white/90">
                 {titleItalic}
               </span>
             )}
