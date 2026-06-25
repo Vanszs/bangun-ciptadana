@@ -2,8 +2,9 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import { Plus, ArrowRight } from "lucide-react";
+import { MapPin, ArrowUpRight } from "lucide-react";
 import type { ProjectItem } from "@/data/types";
+import AnimatedSection from "@/components/AnimatedSection";
 
 interface Props { projects: ProjectItem[]; }
 
@@ -19,13 +20,15 @@ export default function ProjectFilter({ projects }: Props) {
 
   return (
     <>
-      <div className="flex flex-wrap items-center justify-center gap-2 mb-8" role="group" aria-label="Filter proyek">
+      <div className="flex flex-wrap items-center justify-center gap-2 mb-12" role="group" aria-label="Filter proyek">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setSelected(cat)}
-            className={`px-4 py-2 rounded-sm text-xs font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-brand-primary ${
-              selected === cat ? "bg-brand-primary text-white" : "bg-brand-bg text-brand-muted border border-brand-border hover:border-brand-primary hover:text-brand-primary"
+            className={`px-5 py-2 rounded-full text-xs font-medium transition-all duration-300 focus-visible:outline-2 focus-visible:outline-brand-primary ${
+              selected === cat
+                ? "bg-zinc-950 text-white"
+                : "bg-white text-zinc-700 border border-brand-border hover:border-zinc-950 hover:text-zinc-950"
             }`}
             aria-pressed={selected === cat}
           >
@@ -34,22 +37,51 @@ export default function ProjectFilter({ projects }: Props) {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {filtered.map((project) => (
-          <div key={project.id} className="bg-white rounded-md overflow-hidden border border-brand-border/50 hover:border-brand-secondary/30 transition-colors duration-150 flex flex-col group">
-            <div className="relative w-full h-40 overflow-hidden bg-slate-100">
-              <div className="absolute inset-0 bg-black/5 group-hover:bg-black/30 transition-colors duration-150 z-10" />
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-20">
-                <div className="w-9 h-9 rounded-full bg-brand-primary text-white flex items-center justify-center"><Plus className="w-4 h-4" aria-hidden="true" /></div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {filtered.map((project, index) => (
+          <AnimatedSection
+            key={project.id}
+            delay={index * 0.1}
+            className="group relative flex flex-col overflow-hidden bg-zinc-100 rounded-2xl shadow-sm cursor-pointer"
+          >
+            <div className="relative w-full aspect-[3/4] overflow-hidden">
+              <Image
+                src={project.imageUrl}
+                alt={project.title}
+                fill
+                unoptimized
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+              />
+
+              {/* Custom top-left SVG mask */}
+              <div className="absolute top-0 left-0 w-[140px] h-[30px] text-brand-bg select-none pointer-events-none">
+                <svg
+                  className="w-full h-full"
+                  viewBox="0 0 140 30"
+                  fill="currentColor"
+                  preserveAspectRatio="none"
+                  aria-hidden="true"
+                >
+                  <path d="M 0 0 L 0 30 C 50 30, 80 0, 140 0 Z" />
+                </svg>
               </div>
-              <Image src={project.imageUrl} alt={project.title} fill unoptimized sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover object-center select-none" />
+
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+              {/* Floating caption */}
+              <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                <div className="flex items-center gap-1.5 font-mono text-[10px] tracking-wider text-zinc-300 uppercase mb-1">
+                  <MapPin className="w-3 h-3" />
+                  {project.category}
+                </div>
+                <h4 className="font-sans font-bold text-white text-lg tracking-tight leading-snug">
+                  {project.title}
+                </h4>
+              </div>
             </div>
-            <div className="p-4 flex flex-col flex-grow text-left">
-              <span className="text-[11px] font-medium text-brand-secondary uppercase tracking-wide block mb-1">{project.category}</span>
-              <h3 className="font-semibold text-brand-text text-sm group-hover:text-brand-primary transition-colors mb-1 truncate">{project.title}</h3>
-              <p className="text-brand-muted text-xs leading-relaxed line-clamp-2">{project.description}</p>
-            </div>
-          </div>
+          </AnimatedSection>
         ))}
       </div>
 
@@ -59,12 +91,15 @@ export default function ProjectFilter({ projects }: Props) {
         </div>
       )}
 
-      <div className="mt-8 text-center">
+      <div className="mt-12 text-center">
         <button
           onClick={() => setSelected("Semua")}
-          className="inline-flex items-center gap-2 bg-brand-secondary hover:bg-brand-secondary-dark text-white px-5 h-10 rounded-md text-sm font-semibold transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-secondary"
+          className="group inline-flex items-center gap-4 pl-6 pr-1.5 py-1.5 rounded-full border border-zinc-950 hover:bg-zinc-950 hover:text-white text-zinc-950 font-sans text-sm font-medium transition-all duration-300"
         >
-          Lihat Semua Proyek <ArrowRight className="w-4 h-4" aria-hidden="true" />
+          <span>Lihat Semua Proyek</span>
+          <span className="w-7 h-7 rounded-full bg-zinc-950 text-white flex items-center justify-center shadow-sm group-hover:bg-white group-hover:text-zinc-950 transition-colors duration-300">
+            <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+          </span>
         </button>
       </div>
     </>

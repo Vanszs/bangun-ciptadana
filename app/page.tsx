@@ -3,8 +3,8 @@ import Image from "next/image";
 import { readStore } from "@/data/store";
 import { getServiceIcon } from "@/components/IconMapper";
 import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
-import { motion } from "motion/react";
 import HomeHero from "@/components/HomeHero";
+import AnimatedSection from "@/components/AnimatedSection";
 
 export const dynamic = "force-dynamic";
 
@@ -32,28 +32,16 @@ export default async function HomePage() {
       {/* 2. ABOUT — label + manifesto */}
       <section className="bg-brand-bg w-full py-16 md:py-24 overflow-hidden" id="about-us-section">
         <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="md:col-span-3 flex items-start pt-1 md:pt-3"
-          >
+          <AnimatedSection direction="left" className="md:col-span-3 flex items-start pt-1 md:pt-3">
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-brand-primary" />
               <span className="font-sans font-bold text-sm text-brand-text tracking-wider uppercase">
                 Tentang Kami
               </span>
             </div>
-          </motion.div>
+          </AnimatedSection>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            className="md:col-span-9"
-          >
+          <AnimatedSection delay={0.1} className="md:col-span-9">
             <p className="font-sans font-medium text-2xl sm:text-3xl md:text-[32px] lg:text-[40px] text-brand-text leading-snug tracking-tight text-left">
               {profile.description}
             </p>
@@ -63,7 +51,7 @@ export default async function HomePage() {
             >
               Selengkapnya <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
             </Link>
-          </motion.div>
+          </AnimatedSection>
         </div>
       </section>
 
@@ -121,14 +109,7 @@ export default async function HomePage() {
           {/* Project cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {PROJECTS_DATA.map((project, index) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, delay: index * 0.2, ease: "easeOut" }}
-                className="group relative flex flex-col overflow-hidden bg-zinc-100 rounded-2xl shadow-sm cursor-pointer"
-              >
+              <AnimatedSection key={project.id} delay={index * 0.2} className="group relative flex flex-col overflow-hidden bg-zinc-100 rounded-2xl shadow-sm cursor-pointer">
                 <Link href="/projects" className="relative w-full aspect-[3/4] overflow-hidden block">
                   <Image
                     src={project.imageUrl}
@@ -166,7 +147,7 @@ export default async function HomePage() {
                     </h4>
                   </div>
                 </Link>
-              </motion.div>
+              </AnimatedSection>
             ))}
           </div>
         </div>

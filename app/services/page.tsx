@@ -1,7 +1,9 @@
 import HeroBanner from "@/components/HeroBanner";
+import AnimatedSection from "@/components/AnimatedSection";
 import { readStore } from "@/data/store";
 import { getServiceIcon } from "@/components/IconMapper";
-import { CheckCircle2 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -15,47 +17,93 @@ const WORKFLOW = [
 export default async function ServicesPage() {
   const store = await readStore();
   const services = store.services;
-  return (
-    <div className="flex flex-col w-full">
-      <HeroBanner title="Services" />
 
-      {/* Services — 2-col layout (not 3-col again), no icon bg containers */}
-      <section className="py-14 bg-white">
-        <div className="max-w-[1240px] mx-auto px-4">
-          <div className="mb-10 max-w-xl">
-            <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-text mb-3">Solusi Konstruksi Terlengkap</h2>
-            <p className="text-brand-muted text-sm leading-relaxed">Layanan konstruksi profesional berskala komersial maupun hunian, disesuaikan kebutuhan proyek Anda.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-            {services.map((service, i) => (
-              <div key={service.id} className={`bg-brand-bg p-6 rounded-md border border-brand-border/50 text-left flex gap-4 ${i === 0 ? "md:col-span-2" : ""}`}>
-                <div className="mt-0.5 text-brand-secondary shrink-0">{getServiceIcon(service.iconName)}</div>
-                <div className="flex flex-col justify-between flex-1">
-                  <div>
-                    <h3 className="text-sm font-semibold text-brand-text mb-1.5">{service.title}</h3>
-                    <p className="text-brand-muted text-xs leading-relaxed mb-4">{service.description}</p>
+  return (
+    <div className="flex flex-col w-full bg-brand-bg">
+      <HeroBanner title="Layanan" titleItalic="Kami" />
+
+      {/* Intro */}
+      <section className="py-16 md:py-24 bg-brand-bg">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          <AnimatedSection direction="left" className="lg:col-span-4">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-2 h-2 rounded-full bg-brand-primary" />
+              <span className="font-sans font-bold text-sm text-brand-text tracking-wider uppercase">Solusi Konstruksi</span>
+            </div>
+            <h2 className="flex flex-col text-brand-text leading-none">
+              <span className="font-sans font-extrabold text-4xl sm:text-5xl tracking-tight uppercase">Layanan</span>
+              <span className="font-serif italic text-4xl sm:text-5xl text-brand-muted mt-1">Terlengkap</span>
+            </h2>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.1} className="lg:col-span-8">
+            <p className="font-sans font-medium text-xl md:text-2xl text-brand-text leading-snug tracking-tight max-w-2xl">
+              Layanan konstruksi profesional berskala komersial maupun hunian, disesuaikan kebutuhan proyek Anda dari fondasi hingga finishing.
+            </p>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Services grid */}
+      <section className="pb-16 md:pb-24 bg-brand-bg">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="w-full h-[1px] bg-brand-border mb-16" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+            {services.map((service, index) => (
+              <AnimatedSection
+                key={service.id}
+                delay={index * 0.05}
+                className="group p-6 md:p-8 border-b md:border-r border-brand-border first:border-t md:first:border-t hover:bg-white transition-colors duration-300"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start gap-4">
+                    <span className="text-brand-secondary w-5 h-5 shrink-0 mt-0.5">
+                      {getServiceIcon(service.iconName)}
+                    </span>
+                    <div>
+                      <h3 className="text-lg font-semibold text-brand-text mb-2 group-hover:text-brand-primary transition-colors">
+                        {service.title}
+                      </h3>
+                      <p className="text-brand-muted text-sm leading-relaxed max-w-md">{service.description}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1.5 text-brand-secondary text-[11px] font-medium tracking-wide">
-                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0" aria-hidden="true" /> Profesional & Terjamin
-                  </div>
+                  <Link
+                    href="/contact"
+                    className="w-8 h-8 rounded-full border border-brand-border group-hover:border-brand-primary group-hover:bg-brand-primary group-hover:text-white flex items-center justify-center text-brand-muted transition-all shrink-0"
+                    aria-label={`Konsultasi ${service.title}`}
+                  >
+                    <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+                  </Link>
                 </div>
-              </div>
+              </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Workflow — numbered steps, NOT 4-col cards → horizontal numbered list */}
-      <section className="bg-white py-14 border-t border-brand-border">
-        <div className="max-w-[1240px] mx-auto px-4">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-brand-text mb-8">Proses Kerja Terstruktur</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {WORKFLOW.map((wf) => (
-              <div key={wf.step} className="relative pl-8">
-                <span className="absolute left-0 top-0 text-2xl font-bold text-brand-primary/15 select-none">{wf.step}</span>
-                <h4 className="font-semibold text-brand-text text-sm mb-1">{wf.title}</h4>
-                <p className="text-brand-muted text-xs leading-relaxed">{wf.desc}</p>
-              </div>
+      {/* Workflow */}
+      <section className="py-16 md:py-24 bg-white border-t border-brand-border">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <AnimatedSection className="mb-12">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-2 h-2 rounded-full bg-brand-primary" />
+              <span className="font-sans font-bold text-sm text-brand-text tracking-wider uppercase">Cara Kerja</span>
+            </div>
+            <h2 className="flex flex-col text-brand-text leading-none">
+              <span className="font-sans font-extrabold text-4xl sm:text-5xl tracking-tight uppercase">Proses</span>
+              <span className="font-serif italic text-4xl sm:text-5xl text-brand-muted mt-1">Terstruktur</span>
+            </h2>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {WORKFLOW.map((wf, idx) => (
+              <AnimatedSection key={wf.step} delay={idx * 0.15} className="relative pl-8 md:pl-10">
+                <span className="absolute left-0 top-0 text-4xl md:text-5xl font-serif italic font-light text-brand-border select-none">
+                  {wf.step}
+                </span>
+                <h4 className="font-semibold text-brand-text text-base mb-2 pt-2">{wf.title}</h4>
+                <p className="text-brand-muted text-sm leading-relaxed">{wf.desc}</p>
+              </AnimatedSection>
             ))}
           </div>
         </div>
