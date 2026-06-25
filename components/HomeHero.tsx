@@ -87,33 +87,31 @@ export default function HomeHero() {
         </AnimatePresence>
       </div>
 
-      {/* Content — locked to a 12-column layout system */}
-      <div className="relative z-10 h-full max-w-7xl mx-auto px-6 md:px-12 pt-28 pb-36 flex flex-col">
-        {/* Top row: microcopy anchored to the same left column as headline */}
-        <div className="grid grid-cols-12 gap-x-6">
-          <div className="col-span-12 lg:col-span-5">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={`sub-${currentIndex}`}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -15 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="font-sans text-[11px] md:text-xs font-normal text-zinc-200 leading-relaxed tracking-wide"
-              >
-                {currentSlide.subText}
-              </motion.p>
-            </AnimatePresence>
-          </div>
+      {/* Content — full-width with 8-10% viewport padding on desktop */}
+      <div className="relative z-10 h-full w-full px-[5%] md:px-[7%] lg:px-[10%] pt-28 pb-36 flex flex-col">
+        {/* Top: microcopy anchored to the left safe area */}
+        <div className="w-full max-w-[320px]">
+          <AnimatePresence mode="wait">
+            <motion.p
+              key={`sub-${currentIndex}`}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="font-sans text-[11px] md:text-xs font-normal text-zinc-200 leading-relaxed tracking-wide"
+            >
+              {currentSlide.subText}
+            </motion.p>
+          </AnimatePresence>
         </div>
 
         {/* Flexible spacer pushes bottom content down */}
         <div className="flex-1" />
 
-        {/* Bottom row: headline + CTA left, description right */}
-        <div className="grid grid-cols-12 gap-x-6 gap-y-10 items-end">
-          {/* Left column: headline + inline CTA */}
-          <div className="col-span-12 lg:col-span-8">
+        {/* Bottom row: left and right blocks pulled to edges, center kept open for the house */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-10">
+          {/* Left block: headline + CTA, aligned to left safe area */}
+          <div className="max-w-[480px] text-left">
             <AnimatePresence mode="wait">
               <motion.div
                 key={`main-${currentIndex}`}
@@ -161,8 +159,8 @@ export default function HomeHero() {
             </AnimatePresence>
           </div>
 
-          {/* Right column: description block, aligned to right edge */}
-          <div className="col-span-12 lg:col-span-4 flex lg:justify-end w-full">
+          {/* Right block: description, aligned to right safe area */}
+          <div className="max-w-[320px] text-left lg:text-right">
             <AnimatePresence mode="wait">
               <motion.div
                 key={`desc-${currentIndex}`}
@@ -170,7 +168,6 @@ export default function HomeHero() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
-                className="max-w-[320px] w-full text-left lg:text-right lg:ml-auto"
               >
                 <h3 className="font-sans font-bold text-white text-lg sm:text-xl md:text-2xl tracking-tight leading-snug mb-2">
                   {currentSlide.rightHeading}
