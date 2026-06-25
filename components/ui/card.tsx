@@ -15,8 +15,8 @@ function CardHeader({ className, ref, ...props }: DivProps) {
   return <div ref={ref} className={cn("flex flex-col space-y-1.5 p-6", className)} {...props} />;
 }
 
-function CardTitle({ className, ref, ...props }: HeadingProps) {
-  return <h3 ref={ref} className={cn("text-lg font-semibold leading-none tracking-tight", className)} {...props} />;
+function CardTitle({ className, ref, children, ...props }: HeadingProps) {
+  return <h3 ref={ref} className={cn("text-lg font-semibold leading-none tracking-tight", className)} {...props}>{children ?? "\u00A0"}</h3>;
 }
 
 function CardDescription({ className, ref, ...props }: ParagraphProps) {

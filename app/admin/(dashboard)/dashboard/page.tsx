@@ -136,13 +136,11 @@ export default async function AdminDashboardPage() {
                       <span className="text-brand-muted tabular-nums">{count} · {pct}%</span>
                     </div>
                     <div className="h-1.5 rounded-full bg-slate-100 overflow-hidden">
-                      <div
-                        className="h-full bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full transition-all"
+                      <progress
+                        className="h-full w-full bg-gradient-to-r from-brand-primary to-brand-secondary rounded-full transition-all appearance-none [&::-webkit-progress-bar]:bg-transparent [&::-webkit-progress-value]:bg-gradient-to-r [&::-webkit-progress-value]:from-brand-primary [&::-webkit-progress-value]:to-brand-secondary"
                         style={{ width: `${pct}%` }}
-                        role="progressbar"
-                        aria-valuenow={pct}
-                        aria-valuemin={0}
-                        aria-valuemax={100}
+                        value={pct}
+                        max={100}
                         aria-label={`${cat}: ${pct}%`}
                       />
                     </div>

@@ -167,9 +167,15 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
         <dialog
           ref={dialogRef}
           id="admin-mobile-nav"
+          aria-label="Navigasi admin"
           onClose={() => setOpen(false)}
           onClick={(e) => {
             if (e.target === dialogRef.current) setOpen(false);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Escape" || e.key === "Enter") {
+              if (e.target === dialogRef.current) setOpen(false);
+            }
           }}
           className="lg:hidden m-0 p-0 max-w-none max-h-none w-64 h-screen bg-white border-r border-brand-border backdrop:bg-slate-900/40"
         >

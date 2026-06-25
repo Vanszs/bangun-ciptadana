@@ -57,7 +57,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   return (
     <ToastContext value={value}>
       {children}
-      <div role="status" aria-live="polite" className="fixed top-4 right-4 z-[100] flex flex-col gap-2 w-[360px] max-w-[calc(100vw-2rem)]">
+      <output aria-live="polite" className="fixed top-4 right-4 z-[100] flex flex-col gap-2 w-[360px] max-w-[calc(100vw-2rem)]">
         {items.map((item) => (
           <div
             key={item.id}
@@ -81,7 +81,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
             </button>
           </div>
         ))}
-      </div>
+      </output>
     </ToastContext>
   );
 }

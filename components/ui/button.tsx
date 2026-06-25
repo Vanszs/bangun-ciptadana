@@ -40,4 +40,4 @@ function Button({ className, variant, size, asChild = false, ref, ...props }: Bu
   return <Comp className={cn(buttonVariants({ variant, size, className }))} ref={ref} type={props.type ?? "button"} {...props} />;
 }
 
-export { Button, buttonVariants };
+export { Button };

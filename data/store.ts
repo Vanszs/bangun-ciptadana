@@ -116,5 +116,3 @@ export async function mutateStore<T>(mutator: (s: StoreData) => Promise<{ next: 
   await writeStore(out.next);
   return out.result;
 }
-
-export const defaultCompanyProfile = DEFAULT_PROFILE;
