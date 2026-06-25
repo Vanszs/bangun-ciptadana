@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { ArrowUpRight, Menu, X } from "lucide-react";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 
 const NAV_ITEMS = [
   { label: "Beranda", href: "/" },
@@ -24,7 +24,7 @@ export default function Header() {
   const isHome = pathname === "/";
 
   return (
-    <motion.header
+    <m.header
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -121,6 +121,7 @@ export default function Header() {
 
       {/* Mobile hamburger */}
       <button
+        type="button"
         onClick={() => setMobileOpen(!mobileOpen)}
         className={`md:hidden p-2 rounded-full transition-colors ${
           isHome ? "text-white hover:bg-white/10" : "text-brand-text hover:bg-black/5"
@@ -162,6 +163,6 @@ export default function Header() {
           })}
         </nav>
       )}
-    </motion.header>
+    </m.header>
   );
 }

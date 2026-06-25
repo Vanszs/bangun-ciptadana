@@ -137,6 +137,7 @@ export default function ServicesTable({ initial }: Props) {
               <TableHead className="w-12"></TableHead>
               <TableHead aria-sort={sort.key === "title" ? (sort.dir === "asc" ? "ascending" : "descending") : "none"}>
                 <button
+                  type="button"
                   onClick={() => toggleSort("title")}
                   className="inline-flex items-center gap-1.5 -mx-1 px-1 py-0.5 rounded hover:bg-slate-100 transition-colors"
                 >

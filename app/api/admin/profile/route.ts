@@ -15,10 +15,12 @@ export async function PUT(req: Request) {
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const body = (await req.json()) as Partial<CompanyProfile>;
-  const result = await mutateStore((s) => ({
-    next: { ...s, profile: { ...s.profile, ...body } },
-    result: null as unknown as CompanyProfile,
-  }));
-  const store = await readStore();
+  const [result, store] = await Promise.all([
+    mutateStore((s) => ({
+      next: { ...s, profile: { ...s.profile, ...body } },
+      result: null as unknown as CompanyProfile,
+    })),
+    readStore(),
+  ]);
   return NextResponse.json({ profile: result || store.profile });
 }

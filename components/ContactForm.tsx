@@ -90,7 +90,7 @@ export default function ContactForm() {
         <p className="text-brand-muted text-sm leading-relaxed max-w-sm mx-auto mb-6">
           Terima kasih <strong className="text-brand-text">{formData.nama}</strong>. Pengajuan {formData.jobType} berhasil terdaftar. Tim kami akan menghubungi via {formData.phone} dalam 24 jam.
         </p>
-        <button onClick={handleReset} className="inline-flex items-center justify-center h-10 px-5 bg-brand-primary hover:bg-brand-primary-dark text-white font-semibold rounded-md text-sm transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary">
+        <button type="button" onClick={handleReset} className="inline-flex items-center justify-center h-10 px-5 bg-brand-primary hover:bg-brand-primary-dark text-white font-semibold rounded-md text-sm transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary">
           Kirim Konsultasi Lain
         </button>
       </div>

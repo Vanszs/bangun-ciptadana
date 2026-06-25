@@ -8,6 +8,7 @@ export default function AdminError({ error, reset }: { error: Error & { digest?:
         Terjadi kesalahan saat membaca data CMS. Coba lagi, atau periksa file <code className="font-mono text-xs">data/cms-store.json</code>.
       </p>
       <button
+        type="button"
         onClick={reset}
         className="h-10 px-5 bg-brand-primary hover:bg-brand-primary-dark text-white text-sm font-semibold rounded-md transition-colors cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
       >

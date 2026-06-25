@@ -84,6 +84,7 @@ export default function MessagesInbox({ initial }: Props) {
               { key: "read", label: "Sudah dibaca" },
             ] as { key: Filter; label: string }[]).map((f) => (
               <button
+                type="button"
                 key={f.key}
                 onClick={() => setFilter(f.key)}
                 role="radio"
@@ -115,6 +116,7 @@ export default function MessagesInbox({ initial }: Props) {
           ) : (
             filtered.map((m) => (
               <button
+                type="button"
                 key={m.id}
                 onClick={() => openMessage(m)}
                 className={cn(

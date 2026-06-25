@@ -123,7 +123,7 @@ export default function AdminHeroPage() {
             <CardContent className="space-y-4">
               <div className="relative aspect-video rounded-lg bg-slate-100 border border-brand-border overflow-hidden">
                 {slide.imageUrl ? (
-                  <Image src={slide.imageUrl} alt={slide.titleLight} fill unoptimized className="object-cover" />
+                  <Image src={slide.imageUrl} alt={slide.titleLight} fill sizes="(max-width: 1280px) 50vw, 50vw" unoptimized className="object-cover" />
                 ) : (
                   <div className="absolute inset-0 flex flex-col items-center justify-center text-brand-muted">
                     <ImageIcon className="h-8 w-8 mb-2 opacity-40" />

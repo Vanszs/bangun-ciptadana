@@ -134,6 +134,7 @@ export default function AdminShell({ children }: { children: React.ReactNode }) 
           <Logo variant="light" showText />
         </Link>
         <button
+          type="button"
           onClick={() => setOpen(!open)}
           className="p-2 rounded-md hover:bg-slate-100 text-brand-text"
           aria-label="Toggle menu"

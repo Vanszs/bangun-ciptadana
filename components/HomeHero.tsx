@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { m, AnimatePresence } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -56,7 +56,7 @@ export default function HomeHero() {
   useEffect(() => {
     const timer = setInterval(handleNext, 8000);
     return () => clearInterval(timer);
-  }, [handleNext, currentIndex]);
+  }, [handleNext]);
 
   const currentSlide = SLIDES[currentIndex];
 
@@ -65,7 +65,7 @@ export default function HomeHero() {
       {/* Background carousel */}
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="popLayout" initial={false}>
-          <motion.div
+          <m.div
             key={currentIndex}
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -83,7 +83,7 @@ export default function HomeHero() {
               unoptimized
             />
             <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/25 to-black/60" />
-          </motion.div>
+          </m.div>
         </AnimatePresence>
       </div>
 
@@ -92,7 +92,7 @@ export default function HomeHero() {
         {/* Top: microcopy anchored to the left safe area */}
         <div className="w-full max-w-[320px]">
           <AnimatePresence mode="wait">
-            <motion.p
+            <m.p
               key={`sub-${currentIndex}`}
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
@@ -101,7 +101,7 @@ export default function HomeHero() {
               className="font-sans text-[11px] md:text-xs font-normal text-zinc-200 leading-relaxed tracking-wide"
             >
               {currentSlide.subText}
-            </motion.p>
+            </m.p>
           </AnimatePresence>
         </div>
 
@@ -113,7 +113,7 @@ export default function HomeHero() {
           {/* Left block: headline + CTA, aligned to left safe area */}
           <div className="max-w-[480px] text-left">
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={`main-${currentIndex}`}
                 initial="hidden"
                 animate="visible"
@@ -124,7 +124,7 @@ export default function HomeHero() {
                   exit: { opacity: 0, transition: { duration: 0.35 } },
                 }}
               >
-                <motion.h1
+                <m.h1
                   variants={{
                     hidden: { opacity: 0, y: 25 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: "easeOut" } },
@@ -132,9 +132,9 @@ export default function HomeHero() {
                   className="font-sans font-bold text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[0.9] uppercase"
                 >
                   {currentSlide.titleLight}
-                </motion.h1>
+                </m.h1>
 
-                <motion.div
+                <m.div
                   variants={{
                     hidden: { opacity: 0, y: 25 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: "easeOut" } },
@@ -154,15 +154,15 @@ export default function HomeHero() {
                       <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </span>
                   </Link>
-                </motion.div>
-              </motion.div>
+                </m.div>
+              </m.div>
             </AnimatePresence>
           </div>
 
           {/* Right block: description, aligned to right safe area */}
           <div className="max-w-[320px] text-left lg:text-right">
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={`desc-${currentIndex}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -175,7 +175,7 @@ export default function HomeHero() {
                 <p className="font-sans text-xs sm:text-sm font-normal text-zinc-300 leading-relaxed">
                   {currentSlide.rightText}
                 </p>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </div>
         </div>
@@ -195,9 +195,10 @@ export default function HomeHero() {
 
         {/* Carousel dots */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center justify-center gap-2 pointer-events-auto">
-          {SLIDES.map((_, index) => (
+          {SLIDES.map((slide, index) => (
             <button
-              key={index}
+              type="button"
+              key={`dot-${index}-${slide.imageUrl}`}
               onClick={() => handleGoTo(index)}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 index === currentIndex

@@ -20,7 +20,7 @@ interface ToastContextValue {
 const ToastContext = React.createContext<ToastContextValue | null>(null);
 
 export function useToast() {
-  const ctx = React.useContext(ToastContext);
+  const ctx = React.use(ToastContext);
   if (!ctx) throw new Error("useToast must be used within ToastProvider");
   return ctx;
 }
@@ -39,25 +39,28 @@ const bgMap: Record<ToastVariant, string> = {
   info: "bg-brand-primary/5",
 };
 
+let counter = 0;
+
 export function ToastProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = React.useState<ToastItem[]>([]);
 
   const toast = React.useCallback((t: Omit<ToastItem, "id">) => {
-    const id = Math.random().toString(36).slice(2);
+    const id = `toast-${++counter}`;
     setItems((prev) => [...prev, { ...t, id }]);
     setTimeout(() => setItems((prev) => prev.filter((i) => i.id !== id)), 4000);
   }, []);
 
   const dismiss = (id: string) => setItems((prev) => prev.filter((i) => i.id !== id));
 
+  const value = React.useMemo(() => ({ toast }), [toast]);
+
   return (
-    <ToastContext.Provider value={{ toast }}>
+    <ToastContext value={value}>
       {children}
-      <div className="fixed top-4 right-4 z-[100] flex flex-col gap-2 w-[360px] max-w-[calc(100vw-2rem)]">
+      <div role="status" aria-live="polite" className="fixed top-4 right-4 z-[100] flex flex-col gap-2 w-[360px] max-w-[calc(100vw-2rem)]">
         {items.map((item) => (
           <div
             key={item.id}
-            role="status"
             className={cn(
               "rounded-md bg-white shadow-md border border-brand-border p-4 flex items-start gap-3 overflow-hidden",
               bgMap[item.variant],
@@ -69,6 +72,7 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               {item.description && <p className="text-xs text-brand-muted mt-0.5">{item.description}</p>}
             </div>
             <button
+              type="button"
               onClick={() => dismiss(item.id)}
               className="text-brand-muted hover:text-brand-text"
               aria-label="Dismiss"
@@ -78,6 +82,6 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
           </div>
         ))}
       </div>
-    </ToastContext.Provider>
+    </ToastContext>
   );
 }

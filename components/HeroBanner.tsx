@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 
 interface HeroBannerProps {
   title: string;
@@ -32,7 +32,7 @@ export default function HeroBanner({ title, titleItalic, backgroundImage }: Hero
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/35 to-black/70 z-10" />
 
       <div className="relative z-20 w-full max-w-7xl mx-auto px-6 md:px-12 text-center">
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -63,7 +63,7 @@ export default function HeroBanner({ title, titleItalic, backgroundImage }: Hero
               </span>
             )}
           </h1>
-        </motion.div>
+        </m.div>
       </div>
 
       {/* Bottom wave */}

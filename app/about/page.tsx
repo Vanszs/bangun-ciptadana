@@ -30,6 +30,7 @@ export default async function AboutPage() {
               src="/images/dnoin/project_1_1782401315964.jpg"
               alt="Bangun Ciptadana project"
               fill
+              sizes="(max-width: 1024px) 100vw, 58vw"
               className="object-cover object-center"
               unoptimized
             />
@@ -144,6 +145,7 @@ export default async function AboutPage() {
                     src={member.imageUrl}
                     alt={member.name}
                     fill
+                    sizes="(max-width: 640px) 50vw, (max-width: 768px) 25vw, 25vw"
                     className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     unoptimized
                   />

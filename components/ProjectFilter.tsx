@@ -23,6 +23,7 @@ export default function ProjectFilter({ projects }: Props) {
       <div className="flex flex-wrap items-center justify-center gap-2 mb-12" role="group" aria-label="Filter proyek">
         {categories.map((cat) => (
           <button
+            type="button"
             key={cat}
             onClick={() => setSelected(cat)}
             className={`px-5 py-2 rounded-full text-xs font-medium transition-all duration-300 focus-visible:outline-2 focus-visible:outline-brand-primary ${
@@ -93,6 +94,7 @@ export default function ProjectFilter({ projects }: Props) {
 
       <div className="mt-12 text-center">
         <button
+          type="button"
           onClick={() => setSelected("Semua")}
           className="group inline-flex items-center gap-4 pl-6 pr-1.5 py-1.5 rounded-full border border-zinc-950 hover:bg-zinc-950 hover:text-white text-zinc-950 font-sans text-sm font-medium transition-all duration-300"
         >

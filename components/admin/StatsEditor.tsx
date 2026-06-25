@@ -76,6 +76,7 @@ export default function StatsEditor({ initial }: Props) {
           </div>
         ))}
         <button
+          type="button"
           onClick={() => setCreating(true)}
           className="rounded-lg border-2 border-dashed border-brand-border bg-white hover:border-brand-primary/50 hover:bg-brand-primary/5 transition-colors p-4 flex flex-col items-center justify-center text-brand-muted min-h-[140px]"
         >

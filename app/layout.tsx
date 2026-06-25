@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import MotionProvider from "@/components/MotionProvider";
 import { readStore } from "@/data/store";
 
 export const metadata: Metadata = {
@@ -14,9 +15,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang="id">
       <body className="flex flex-col min-h-screen bg-brand-bg selection:bg-brand-primary/20 selection:text-brand-primary-dark">
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer profile={profile} />
+        <MotionProvider>
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer profile={profile} />
+        </MotionProvider>
       </body>
     </html>
   );

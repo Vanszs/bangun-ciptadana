@@ -2,6 +2,7 @@ import AdminPageHeader from "@/components/admin/AdminPageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { KeyRound, Globe, FileText, AlertCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
@@ -81,11 +82,11 @@ export default function AdminSettingsPage() {
             <CardDescription>Link ke halaman publik.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
-            <a href="/" className="block text-sm font-semibold text-brand-primary hover:underline">/ — Home</a>
-            <a href="/about" className="block text-sm font-semibold text-brand-primary hover:underline">/about — About Us</a>
-            <a href="/services" className="block text-sm font-semibold text-brand-primary hover:underline">/services — Services</a>
-            <a href="/projects" className="block text-sm font-semibold text-brand-primary hover:underline">/projects — Projects</a>
-            <a href="/contact" className="block text-sm font-semibold text-brand-primary hover:underline">/contact — Contact</a>
+            <Link href="/" className="block text-sm font-semibold text-brand-primary hover:underline">/ — Home</Link>
+            <Link href="/about" className="block text-sm font-semibold text-brand-primary hover:underline">/about — About Us</Link>
+            <Link href="/services" className="block text-sm font-semibold text-brand-primary hover:underline">/services — Services</Link>
+            <Link href="/projects" className="block text-sm font-semibold text-brand-primary hover:underline">/projects — Projects</Link>
+            <Link href="/contact" className="block text-sm font-semibold text-brand-primary hover:underline">/contact — Contact</Link>
           </CardContent>
         </Card>
 
