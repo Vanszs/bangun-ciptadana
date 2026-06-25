@@ -102,7 +102,7 @@ export default async function ServicesPage() {
                   {wf.step}
                 </span>
                 <h4 className="font-semibold text-brand-text text-base mb-2 pt-2">{wf.title}</h4>
-                <p className="text-brand-muted text-sm leading-relaxed">{wf.desc}</p>
+                <p className="text-slate-700 text-sm leading-relaxed">{wf.desc}</p>
               </AnimatedSection>
             ))}
           </div>
