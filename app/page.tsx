@@ -2,227 +2,194 @@ import Link from "next/link";
 import Image from "next/image";
 import { readStore } from "@/data/store";
 import { getServiceIcon } from "@/components/IconMapper";
-import { MapPin, ArrowRight, ArrowUpRight, Phone } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
+import { motion } from "motion/react";
+import HomeHero from "@/components/HomeHero";
 
 export const dynamic = "force-dynamic";
+
+const DN_PROJECT_IMAGES = [
+  "/images/dnoin/project_1_1782401315964.jpg",
+  "/images/dnoin/project_2_1782401340614.jpg",
+  "/images/dnoin/project_3_1782401358964.jpg",
+];
 
 export default async function HomePage() {
   const store = await readStore();
   const SERVICES_DATA = store.services;
   const STATS_DATA = store.stats;
-  const PROJECTS_DATA = store.projects.slice(0, 3);
+  const PROJECTS_DATA = store.projects.slice(0, 3).map((p, i) => ({
+    ...p,
+    imageUrl: DN_PROJECT_IMAGES[i] || p.imageUrl,
+  }));
   const profile = store.profile;
 
   return (
-    <div className="flex flex-col w-full bg-brand-bg space-y-20 pb-24">
+    <div className="flex flex-col w-full bg-brand-bg">
+      {/* 1. HERO — fullscreen DNOIN carousel */}
+      <HomeHero />
 
-      {/* 1. HERO — rounded card with brand deep navy backdrop, logo blue & green accents */}
-      <section className="px-4 md:px-6 lg:px-8 pt-6">
-        <div className="relative min-h-[560px] lg:min-h-[660px] rounded-[2.5rem] overflow-hidden flex flex-col justify-between p-8 lg:p-14 bg-[#0F1E36]">
-          {/* BG image */}
-          <Image
-            src="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=1920&q=80"
-            alt="Gedung komersial modern"
-            fill
-            priority
-            sizes="100vw"
-            unoptimized
-            className="object-cover object-center opacity-40"
-          />
-          {/* Gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0F1E36]/65 via-[#0F1E36]/45 to-[#0F1E36]/90 z-0" />
-
-          {/* Top row */}
-          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
-            <p className="text-white/75 text-xs lg:text-sm max-w-sm font-light leading-relaxed tracking-wide">
-              {profile.tagline} — konstruksi sipil, renovasi, interior, aluminium &amp; kaca di seluruh Indonesia.
-            </p>
-            <div className="hidden md:flex justify-end">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-brand-primary/10 border border-brand-primary/25 backdrop-blur-md rounded-full text-[11px] font-semibold tracking-widest uppercase text-white">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-secondary animate-pulse" />
-                Est. {profile.establishedYear}
-              </span>
-            </div>
-          </div>
-
-          {/* Main headline */}
-          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-end mt-20 lg:mt-32">
-            <div className="lg:col-span-8 space-y-2">
-              <h1 className="leading-none flex flex-col text-white">
-                <span className="font-bold uppercase tracking-tight text-5xl md:text-7xl lg:text-8xl">
-                  Bangun
-                </span>
-                <span className="font-light italic tracking-wide text-5xl md:text-7xl lg:text-8xl mt-1 text-white/95">
-                  Ciptadana
-                </span>
-              </h1>
-
-              <div className="pt-6 flex items-center gap-3 flex-wrap">
-                <Link
-                  href="/services"
-                  className="group inline-flex items-center gap-2 bg-brand-secondary hover:bg-brand-secondary-dark text-white px-6 py-3 rounded-full text-xs font-semibold tracking-wide transition-all duration-300 shadow-md shadow-brand-secondary/20"
-                >
-                  Lihat Layanan
-                  <span className="w-5 h-5 rounded-full bg-white/20 text-white flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                    <ArrowRight className="w-3 h-3" />
-                  </span>
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center gap-2 border border-white/30 text-white hover:bg-white/10 px-6 py-3 rounded-full text-xs font-semibold tracking-wide transition-all duration-300"
-                >
-                  <Phone className="w-3.5 h-3.5" aria-hidden="true" />
-                  Hubungi Kami
-                </Link>
-              </div>
-            </div>
-
-            {/* Right trust block */}
-            <div className="lg:col-span-4 lg:text-right text-left space-y-3 lg:border-l lg:border-white/10 lg:pl-6 pb-2">
-              <span className="text-brand-secondary uppercase tracking-widest text-[10px] font-bold block">
-                Kenapa Kami
-              </span>
-              <h3 className="font-semibold text-base lg:text-lg text-white">
-                Konstruksi berkualitas,<br />tepat waktu
-              </h3>
-              <p className="text-white/60 text-xs font-light leading-relaxed max-w-xs lg:ml-auto">
-                Tim teknik sipil &amp; arsitek bersertifikat, material SNI, sistem kerja transparan, garansi tertulis.
-              </p>
-            </div>
-          </div>
-
-          {/* Scroll indicator dots */}
-          <div className="relative z-10 flex justify-center gap-2 mt-8">
-            <span className="w-2 h-2 rounded-full bg-brand-secondary block" />
-            <span className="w-2 h-2 rounded-full bg-white/30 block" />
-            <span className="w-2 h-2 rounded-full bg-white/30 block" />
-          </div>
-        </div>
-      </section>
-
-      {/* 2. ABOUT BRIEF — editorial blurb using logo colors */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        <div className="lg:col-span-4 flex items-center gap-3">
-          <span className="w-2 h-2 rounded-full bg-brand-primary flex-shrink-0" />
-          <h2 className="font-semibold text-sm tracking-widest uppercase text-brand-text/80">
-            Tentang Kami
-          </h2>
-        </div>
-        <div className="lg:col-span-8">
-          <p className="font-light text-2xl md:text-3xl lg:text-4xl text-brand-text leading-snug tracking-tight">
-            {profile.description}
-          </p>
-          <Link
-            href="/about"
-            className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary hover:text-brand-primary-dark hover:underline transition-colors"
+      {/* 2. ABOUT — label + manifesto */}
+      <section className="bg-brand-bg w-full py-16 md:py-24 overflow-hidden" id="about-us-section">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="md:col-span-3 flex items-start pt-1 md:pt-3"
           >
-            Selengkapnya <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
-          </Link>
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-brand-primary" />
+              <span className="font-sans font-bold text-sm text-brand-text tracking-wider uppercase">
+                Tentang Kami
+              </span>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="md:col-span-9"
+          >
+            <p className="font-sans font-medium text-2xl sm:text-3xl md:text-[32px] lg:text-[40px] text-brand-text leading-snug tracking-tight text-left">
+              {profile.description}
+            </p>
+            <Link
+              href="/about"
+              className="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary hover:text-brand-primary-dark hover:underline transition-colors"
+            >
+              Selengkapnya <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
+          </motion.div>
         </div>
       </section>
 
       {/* 3. STATS ROW */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
-        <div className="bg-white border border-brand-border rounded-2xl p-8 grid grid-cols-2 lg:grid-cols-4 gap-8 divide-x divide-brand-border">
+      <section className="max-w-7xl mx-auto px-6 md:px-12 w-full pb-16 md:pb-24">
+        <div className="w-full h-[1px] bg-brand-border mb-12" />
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {STATS_DATA.map((item) => (
-            <div key={item.id} className="flex flex-col items-start pl-6 first:pl-0">
-              <div className="text-3xl font-bold text-brand-text tracking-tight">{item.value}</div>
+            <div key={item.id} className="flex flex-col items-start">
+              <div className="text-3xl md:text-4xl font-bold text-brand-text tracking-tight font-sans">{item.value}</div>
               <div className="text-xs font-semibold text-brand-muted mt-1 uppercase tracking-wider">{item.label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* 4. RECENT PROJECTS */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 space-y-12">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-brand-border">
-          <div>
-            <h2 className="flex flex-col text-brand-text leading-none">
-              <span className="font-bold uppercase tracking-tight text-4xl lg:text-5xl">
-                Proyek
-              </span>
-              <span className="font-light italic tracking-wide text-4xl lg:text-5xl mt-1 text-brand-muted">
-                Terbaru
-              </span>
-            </h2>
-          </div>
-          <div className="max-w-md space-y-4">
-            <p className="text-brand-muted text-xs md:text-sm font-light leading-relaxed">
-              Hasil kerja nyata dari berbagai proyek konstruksi, renovasi, dan interior yang kami kerjakan di seluruh Indonesia.
-            </p>
-            <Link
-              href="/projects"
-              className="group inline-flex items-center gap-2 bg-brand-primary hover:bg-brand-primary-dark text-white px-6 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all shadow-md shadow-brand-primary/10"
-            >
-              Lihat Semua
-              <span className="w-5 h-5 rounded-full bg-white text-brand-primary flex items-center justify-center group-hover:translate-x-1 transition-transform">
-                <ArrowRight className="w-3 h-3" />
-              </span>
-            </Link>
-          </div>
-        </div>
+      {/* 4. RECENT PROJECTS — DNOIN card style */}
+      <section className="bg-brand-bg w-full pb-24 pt-4 overflow-hidden" id="recent-projects-section">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          {/* Separator */}
+          <div className="w-full h-[1px] bg-brand-border mb-16" />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {PROJECTS_DATA.map((project, idx) => (
-            <Link
-              key={project.id}
-              href="/projects"
-              className="group cursor-pointer space-y-4"
-            >
-              <div className="relative overflow-hidden rounded-[2rem] aspect-[4/3] bg-brand-bg border border-brand-border">
-                {project.imageUrl ? (
+          {/* Header row */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-16">
+            <div className="lg:col-span-4">
+              <h2 className="flex flex-col text-left text-brand-text leading-none">
+                <span className="font-sans font-extrabold text-4xl sm:text-5xl md:text-6xl tracking-tight leading-none uppercase">
+                  Proyek
+                </span>
+                <span className="font-serif italic font-normal text-4xl sm:text-5xl md:text-6xl leading-tight mt-1 text-brand-muted">
+                  Terbaru
+                </span>
+              </h2>
+            </div>
+
+            <div className="lg:col-span-5">
+              <p className="font-sans text-xs sm:text-sm text-brand-muted leading-relaxed max-w-md text-left">
+                Hasil kerja nyata dari berbagai proyek konstruksi, renovasi, dan interior yang kami kerjakan dengan standar kualitas premium.
+              </p>
+            </div>
+
+            <div className="lg:col-span-3 flex lg:justify-end justify-start">
+              <Link
+                href="/projects"
+                className="group flex items-center gap-4 pl-6 pr-1.5 py-1.5 rounded-full border border-zinc-950 hover:bg-zinc-950 hover:text-white text-zinc-950 font-sans text-sm font-medium transition-all duration-300"
+              >
+                <span>Lihat Semua</span>
+                <span className="w-7 h-7 rounded-full bg-zinc-950 text-white flex items-center justify-center shadow-sm group-hover:bg-white group-hover:text-zinc-950 transition-colors duration-300">
+                  <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+                </span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Project cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {PROJECTS_DATA.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, delay: index * 0.2, ease: "easeOut" }}
+                className="group relative flex flex-col overflow-hidden bg-zinc-100 rounded-2xl shadow-sm cursor-pointer"
+              >
+                <Link href="/projects" className="relative w-full aspect-[3/4] overflow-hidden block">
                   <Image
                     src={project.imageUrl}
                     alt={project.title}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     unoptimized
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-brand-primary/20 to-brand-secondary/20 flex items-center justify-center">
-                    <span className="font-mono text-brand-primary/30 text-4xl font-bold">0{idx + 1}</span>
+
+                  {/* Custom top-left SVG mask */}
+                  <div className="absolute top-0 left-0 w-[140px] h-[30px] text-brand-bg select-none pointer-events-none">
+                    <svg
+                      className="w-full h-full"
+                      viewBox="0 0 140 30"
+                      fill="currentColor"
+                      preserveAspectRatio="none"
+                      aria-hidden="true"
+                    >
+                      <path d="M 0 0 L 0 30 C 50 30, 80 0, 140 0 Z" />
+                    </svg>
                   </div>
-                )}
-                <div className="absolute top-4 left-4 bg-brand-primary/90 backdrop-blur-sm text-white text-[10px] uppercase font-mono tracking-widest px-3 py-1 rounded-full">
-                  0{idx + 1} / Konstruksi
-                </div>
-              </div>
-              <div className="space-y-1.5 px-2">
-                {project.category && (
-                  <div className="flex items-center gap-1.5 text-xs text-brand-secondary font-semibold uppercase tracking-wider">
-                    <MapPin className="w-3.5 h-3.5" />
-                    {project.category}
+
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  {/* Floating caption */}
+                  <div className="absolute bottom-0 left-0 right-0 p-6 flex flex-col transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <div className="flex items-center gap-1.5 font-mono text-[10px] tracking-wider text-zinc-300 uppercase mb-1">
+                      <MapPin className="w-3 h-3" />
+                      {project.category}
+                    </div>
+                    <h4 className="font-sans font-bold text-white text-lg tracking-tight leading-snug">
+                      {project.title}
+                    </h4>
                   </div>
-                )}
-                <h3 className="font-semibold text-lg text-brand-text group-hover:text-brand-primary transition-colors">
-                  {project.title}
-                </h3>
-              </div>
-            </Link>
-          ))}
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 5. SERVICES — deep navy panel with brand secondary green list highlights */}
-      <section className="px-4 md:px-6 lg:px-8">
-        <div className="relative min-h-[480px] rounded-[2.5rem] overflow-hidden flex flex-col justify-between p-8 lg:p-14 bg-[#0F1E36]">
+      {/* 5. SERVICES — deep panel */}
+      <section className="px-4 md:px-6 lg:px-8 pb-24">
+        <div className="relative min-h-[480px] rounded-[2.5rem] overflow-hidden flex flex-col justify-between p-8 lg:p-14 bg-brand-text">
           {/* subtle grid overlay */}
           <div className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:32px_32px]" />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center my-auto">
-            {/* Title column */}
             <div className="space-y-6">
               <h2 className="flex flex-col text-white leading-none">
-                <span className="font-bold uppercase tracking-tight text-4xl lg:text-5xl">
+                <span className="font-sans font-bold uppercase tracking-tight text-4xl lg:text-5xl">
                   Layanan
                 </span>
-                <span className="font-light italic tracking-wide text-4xl lg:text-5xl mt-1 text-white/80">
+                <span className="font-serif italic tracking-wide text-4xl lg:text-5xl mt-1 text-white/80">
                   Profesional
                 </span>
               </h2>
               <p className="text-white/55 text-sm font-light max-w-sm leading-relaxed">
-                Berbagai layanan konstruksi profesional dengan standar kualitas premium, didukung tenaga teknik sipil &amp; arsitektural berpengalaman.
+                Berbagai layanan konstruksi profesional dengan standar kualitas premium, didukung tenaga teknik sipil & arsitektural berpengalaman.
               </p>
               <Link
                 href="/contact"
@@ -235,9 +202,8 @@ export default async function HomePage() {
               </Link>
             </div>
 
-            {/* Service list */}
             <div className="bg-white/8 backdrop-blur-sm rounded-2xl p-6 lg:p-8 divide-y divide-white/10 border border-white/10">
-              {SERVICES_DATA.map((service) => (
+              {SERVICES_DATA.slice(0, 6).map((service) => (
                 <div
                   key={service.id}
                   className="group py-4 flex items-center justify-between first:pt-0 last:pb-0"
@@ -265,22 +231,21 @@ export default async function HomePage() {
       </section>
 
       {/* 6. CTA RIBBON */}
-      <section className="max-w-7xl mx-auto px-6 lg:px-12 w-full">
-        <div className="bg-brand-primary rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-brand-primary/10">
+      <section className="max-w-7xl mx-auto px-6 md:px-12 w-full pb-24">
+        <div className="bg-brand-primary rounded-[2rem] p-8 md:p-12 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xl shadow-brand-primary/10">
           <div className="text-white space-y-1 text-center md:text-left">
             <p className="text-xl font-bold tracking-tight">Konsultasikan kebutuhan proyek Anda.</p>
-            <p className="text-white/75 text-sm font-light">Tim sipil &amp; arsitek siap memberikan solusi terbaik.</p>
+            <p className="text-white/75 text-sm font-light">Tim sipil & arsitek siap memberikan solusi terbaik.</p>
           </div>
           <Link
             href="/contact"
-            className="group inline-flex items-center gap-2 bg-white text-brand-primary hover:bg-[#F8FAFC] px-7 py-3.5 rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-md shadow-brand-primary/10"
+            className="group inline-flex items-center gap-2 bg-white text-brand-primary hover:bg-brand-surface-soft px-7 py-3.5 rounded-full text-sm font-semibold transition-all whitespace-nowrap shadow-md shadow-brand-primary/10"
           >
             Hubungi Sekarang
             <ArrowUpRight className="w-4 h-4 group-hover:rotate-45 transition-transform duration-300" aria-hidden="true" />
           </Link>
         </div>
       </section>
-
     </div>
   );
 }

@@ -8,8 +8,9 @@ interface LogoProps {
 
 export default function Logo({ className = "", variant = "light", showText = true }: LogoProps) {
   const isFooter = variant === "footer";
-  const textColor = isFooter ? "text-white" : "text-brand-primary-dark";
-  const subtextColor = isFooter ? "text-gray-300" : "text-brand-secondary-dark";
+  const isDark = variant === "dark";
+  const textColor = isFooter || isDark ? "text-white" : "text-brand-primary-dark";
+  const subtextColor = isFooter || isDark ? "text-white/80" : "text-brand-secondary-dark";
 
   return (
     <div className={`flex items-center gap-3 select-none ${className}`}>

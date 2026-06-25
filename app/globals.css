@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", "Open Sans", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", ui-serif, Georgia, serif;
   /* Primary: deep teal-blue — trustworthy, professional, selaras dengan logo */
   --color-brand-primary: #0F4C5C;
   --color-brand-primary-dark: #0B3A47;
@@ -12,12 +13,13 @@
   /* Accent: amber/orange — safety, energy, CTA konstruksi */
   --color-brand-accent: #F59E0B;
   --color-brand-accent-hover: #D97706;
-  /* Neutrals */
+  /* Lux surfaces */
   --color-brand-surface: #FFFFFF;
-  --color-brand-bg: #F8FAFC;
-  --color-brand-text: #0F172A;
-  --color-brand-muted: #64748B;
-  --color-brand-border: #E2E8F0;
+  --color-brand-surface-soft: #F9F9FB;
+  --color-brand-bg: #F9F9FB;
+  --color-brand-text: #09090B;
+  --color-brand-muted: #71717A;
+  --color-brand-border: #E4E4E7;
 }
 
 body {

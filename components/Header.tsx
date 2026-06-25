@@ -5,13 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { ArrowUpRight, Menu, X } from "lucide-react";
+import { motion } from "motion/react";
 
 const NAV_ITEMS = [
-  { label: "Home", href: "/" },
-  { label: "About Us", href: "/about" },
-  { label: "Service", href: "/services" },
-  { label: "Project", href: "/projects" },
-  { label: "Contact", href: "/contact" },
+  { label: "Beranda", href: "/" },
+  { label: "Tentang", href: "/about" },
+  { label: "Layanan", href: "/services" },
+  { label: "Proyek", href: "/projects" },
+  { label: "Kontak", href: "/contact" },
 ];
 
 export default function Header() {
@@ -20,70 +21,108 @@ export default function Header() {
 
   if (pathname?.startsWith("/admin")) return null;
 
+  const isHome = pathname === "/";
+
   return (
-    <header className="sticky top-0 z-50 bg-[#F8FAFC] border-b border-[#1E293B]/8 px-4 md:px-6 lg:px-12 py-3">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo */}
-        <Link
-          href="/"
-          className="hover:opacity-80 transition-opacity focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded"
-        >
-          <Logo variant="light" showText />
-        </Link>
+    <motion.header
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className={`${isHome ? "absolute" : "sticky bg-brand-surface-soft border-b border-brand-border"} top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-20`}
+      id="app-header"
+    >
+      {/* Brand Logo */}
+      <Link
+        href="/"
+        className="hover:opacity-90 transition-opacity focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2 rounded"
+        id="brand-logo-container"
+      >
+        <Logo variant={isHome ? "dark" : "light"} showText />
+      </Link>
 
-        {/* Desktop pill nav */}
-        <nav
-          className="hidden md:flex items-center bg-white border border-brand-border rounded-full px-2 py-1 gap-0.5 shadow-sm"
-          aria-label="Main"
+      {/* Floating Center Menu */}
+      <div className="hidden md:flex relative h-full items-start pt-0" id="center-menu-wrapper">
+        <div
+          className="relative flex items-center justify-center bg-white px-8 h-12 rounded-b-2xl shadow-md"
+          id="center-menu-container"
         >
-          {NAV_ITEMS.map((item) => {
-            const active =
-              item.href === "/"
-                ? pathname === "/"
-                : pathname?.startsWith(item.href);
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                aria-current={active ? "page" : undefined}
-                className={`relative px-5 py-2 rounded-full text-sm font-semibold tracking-tight transition-all duration-200 focus-visible:outline-2 focus-visible:outline-brand-primary ${
-                  active
-                    ? "bg-brand-primary text-white shadow-sm shadow-brand-primary/15"
-                    : "text-brand-text/75 hover:text-brand-primary hover:bg-brand-primary/5"
-                }`}
-              >
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
+          {/* Left outward curve mask */}
+          <svg
+            className="absolute top-0 -left-6 w-6 h-6 text-white"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M 0 0 C 16 0, 24 8, 24 24 L 24 0 Z" />
+          </svg>
 
-        {/* Action Button */}
-        <Link
-          href="/contact"
-          className="hidden md:inline-flex items-center gap-1.5 bg-brand-primary hover:bg-brand-primary-dark text-white text-xs font-semibold uppercase tracking-wider px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-brand-primary/20 group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-primary"
-        >
-          Hubungi Kami
-          <ArrowUpRight className="w-3.5 h-3.5 group-hover:rotate-45 transition-transform duration-300" aria-hidden="true" />
-        </Link>
+          <nav className="flex items-center space-x-8" id="navigation-bar" aria-label="Main">
+            {NAV_ITEMS.map((item, index) => {
+              const active =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname?.startsWith(item.href);
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? "page" : undefined}
+                  className="font-sans text-sm font-medium text-zinc-800 hover:text-black transition-colors relative group py-1"
+                  id={`nav-link-${index}`}
+                >
+                  {item.label}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-black transition-all group-hover:w-full" />
+                </Link>
+              );
+            })}
+          </nav>
 
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-[#1E293B] p-2 rounded-full hover:bg-[#1E293B]/5 focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2"
-          aria-label="Toggle menu"
-          aria-expanded={mobileOpen}
-          aria-controls="mobile-nav"
-        >
-          {mobileOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
-        </button>
+          {/* Right outward curve mask */}
+          <svg
+            className="absolute top-0 -right-6 w-6 h-6 text-white"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            aria-hidden="true"
+          >
+            <path d="M 24 0 C 8 0, 0 8, 0 24 L 0 0 Z" />
+          </svg>
+        </div>
       </div>
+
+      {/* Right Action Button */}
+      <Link
+        href="/contact"
+        className={`hidden md:inline-flex group items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full border transition-all duration-300 text-sm font-medium ${
+          isHome
+            ? "border-white/30 hover:border-white/80 bg-black/10 hover:bg-white/10 text-white"
+            : "border-zinc-950 hover:bg-zinc-950 hover:text-white text-zinc-950 bg-white"
+        }`}
+        id="header-action-container"
+      >
+        <span>Konsultasi</span>
+        <span className="w-7 h-7 rounded-full bg-white flex items-center justify-center text-zinc-950 shadow-sm group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300">
+          <ArrowUpRight className="w-4 h-4 stroke-[2.5]" />
+        </span>
+      </Link>
+
+      {/* Mobile hamburger */}
+      <button
+        onClick={() => setMobileOpen(!mobileOpen)}
+        className={`md:hidden p-2 rounded-full transition-colors ${
+          isHome ? "text-white hover:bg-white/10" : "text-brand-text hover:bg-black/5"
+        }`}
+        aria-label="Toggle menu"
+        aria-expanded={mobileOpen}
+        aria-controls="mobile-nav"
+      >
+        {mobileOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
+      </button>
 
       {/* Mobile menu */}
       {mobileOpen && (
         <nav
           id="mobile-nav"
-          className="md:hidden border-t border-brand-border mt-3 pt-3 pb-2 flex flex-wrap gap-2 px-2"
+          className="absolute top-full left-0 right-0 bg-white border-b border-brand-border shadow-lg py-4 px-6 flex flex-col gap-2 md:hidden"
           aria-label="Mobile"
         >
           {NAV_ITEMS.map((item) => {
@@ -97,26 +136,18 @@ export default function Header() {
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
                 aria-current={active ? "page" : undefined}
-                className={`flex-shrink-0 px-4 py-1.5 rounded-full text-xs font-semibold tracking-tight transition-all focus-visible:outline-2 focus-visible:outline-brand-primary ${
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   active
                     ? "bg-brand-primary text-white"
-                    : "bg-brand-primary/8 text-brand-primary-dark hover:bg-brand-primary/15"
+                    : "text-zinc-800 hover:bg-zinc-100"
                 }`}
               >
                 {item.label}
               </Link>
             );
           })}
-          <Link
-            href="/contact"
-            onClick={() => setMobileOpen(false)}
-            className="flex-shrink-0 inline-flex items-center gap-1 bg-brand-secondary text-white px-4 py-1.5 rounded-full text-xs font-semibold focus-visible:outline-2 focus-visible:outline-brand-primary"
-          >
-            Hubungi Kami
-            <ArrowUpRight className="w-3 h-3" aria-hidden="true" />
-          </Link>
         </nav>
       )}
-    </header>
+    </motion.header>
   );
 }
