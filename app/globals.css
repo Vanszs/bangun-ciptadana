@@ -3,13 +3,19 @@
 
 @theme {
   --font-sans: "Plus Jakarta Sans", "Open Sans", sans-serif;
-  --color-brand-primary: #1491D0;
-  --color-brand-primary-dark: #0D6EA5;
-  --color-brand-secondary: #7BC255;
-  --color-brand-secondary-dark: #5EA43E;
+  /* Primary: deep teal-blue — trustworthy, professional, selaras dengan logo */
+  --color-brand-primary: #0F4C5C;
+  --color-brand-primary-dark: #0B3A47;
+  /* Secondary: deep teal-green — growth & craftsmanship, selaras dengan logo */
+  --color-brand-secondary: #1F6F5B;
+  --color-brand-secondary-dark: #166534;
+  /* Accent: amber/orange — safety, energy, CTA konstruksi */
+  --color-brand-accent: #F59E0B;
+  --color-brand-accent-hover: #D97706;
+  /* Neutrals */
   --color-brand-surface: #FFFFFF;
   --color-brand-bg: #F8FAFC;
-  --color-brand-text: #1E293B;
+  --color-brand-text: #0F172A;
   --color-brand-muted: #64748B;
   --color-brand-border: #E2E8F0;
 }
