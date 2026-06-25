@@ -9,6 +9,9 @@ import { Label } from "@/components/ui/label";
 import Logo from "@/components/Logo";
 import { LockKeyhole, Mail, Loader2, ShieldAlert } from "lucide-react";
 
+const DEMO_EMAIL = "admin@bangun-ciptadana.id";
+const DEMO_PASSWORD = "AdminBC2024!";
+
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -22,6 +25,21 @@ function LoginForm() {
     setLoading(true);
     setError(null);
     const res = await signIn("credentials", { email, password, redirect: false });
+    setLoading(false);
+    if (res?.error) {
+      setError("Email atau password salah.");
+      return;
+    }
+    router.push(searchParams.get("callbackUrl") || "/admin/dashboard");
+    router.refresh();
+  }
+
+  async function loginDemo() {
+    setEmail(DEMO_EMAIL);
+    setPassword(DEMO_PASSWORD);
+    setLoading(true);
+    setError(null);
+    const res = await signIn("credentials", { email: DEMO_EMAIL, password: DEMO_PASSWORD, redirect: false });
     setLoading(false);
     if (res?.error) {
       setError("Email atau password salah.");
@@ -83,11 +101,23 @@ function LoginForm() {
         {loading ? "Memproses..." : "Masuk"}
       </Button>
 
+      <Button
+        type="button"
+        size="lg"
+        variant="outline"
+        onClick={loginDemo}
+        disabled={loading}
+        className="w-full border-brand-border hover:bg-slate-50 text-brand-text font-semibold transition-all cursor-pointer"
+      >
+        {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+        Login Demo
+      </Button>
+
       <div className="rounded-lg bg-slate-50 border border-slate-100 p-3.5 text-[11px] text-slate-500 leading-relaxed">
         <strong className="text-slate-700 block mb-1">Kredensial Demo:</strong>
-        Email: <code className="text-brand-primary-dark font-mono bg-white px-1 py-0.5 rounded border border-slate-100">admin@bangun-ciptadana.id</code>
+        Email: <code className="text-brand-primary-dark font-mono bg-white px-1 py-0.5 rounded border border-slate-100">{DEMO_EMAIL}</code>
         <br />
-        Password: <code className="text-brand-primary-dark font-mono bg-white px-1 py-0.5 rounded border border-slate-100">AdminBC2024!</code>
+        Password: <code className="text-brand-primary-dark font-mono bg-white px-1 py-0.5 rounded border border-slate-100">{DEMO_PASSWORD}</code>
       </div>
     </form>
   );

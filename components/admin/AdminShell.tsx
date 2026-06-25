@@ -22,6 +22,9 @@ import {
   ExternalLink,
   UserCog,
   CreditCard,
+  LayoutTemplate,
+  GitBranch,
+  Type,
 } from "lucide-react";
 import Logo from "@/components/Logo";
 import { cn } from "@/lib/utils";
@@ -42,10 +45,13 @@ const NAV_GROUPS = [
   {
     label: "Content",
     items: [
+      { href: "/admin/hero", label: "Hero Section", icon: LayoutTemplate },
       { href: "/admin/services", label: "Layanan", icon: Briefcase },
       { href: "/admin/projects", label: "Proyek", icon: FolderKanban },
+      { href: "/admin/workflow", label: "Proses Kerja", icon: GitBranch },
       { href: "/admin/team", label: "Tim", icon: Users },
       { href: "/admin/values", label: "Nilai Perusahaan", icon: Award },
+      { href: "/admin/content", label: "Pengaturan Konten", icon: Type },
     ],
   },
   {
