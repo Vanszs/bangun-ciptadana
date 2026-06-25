@@ -2,8 +2,8 @@ import type { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "admin@bangun-ciptadana.id";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "AdminBC2024!";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL ?? "";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -34,5 +34,5 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET || "bangun-ciptadana-dev-secret-change-in-production-9f8e7d6c5b4a3",
+  secret: process.env.NEXTAUTH_SECRET,
 };

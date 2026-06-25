@@ -81,8 +81,8 @@ export default function ValuesEditor({ initial }: Props) {
         </button>
       </div>
 
-      <ValueFormDialog open={creating} onOpenChange={setCreating} onSubmit={handleCreate} busy={busy} title="Tambah Nilai" />
-      <ValueFormDialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)} initial={editing || undefined} onSubmit={handleUpdate} busy={busy} title="Edit Nilai" />
+      <ValueFormDialog key="create" open={creating} onOpenChange={setCreating} onSubmit={handleCreate} busy={busy} title="Tambah Nilai" />
+      <ValueFormDialog key={editing?.id ?? "new"} open={!!editing} onOpenChange={(o) => !o && setEditing(null)} initial={editing || undefined} onSubmit={handleUpdate} busy={busy} title="Edit Nilai" />
 
       <Dialog open={!!confirmDelete} onOpenChange={(o) => !o && setConfirmDelete(null)}>
         <DialogContent>
@@ -105,15 +105,7 @@ function ValueFormDialog({ open, onOpenChange, initial, onSubmit, busy, title }:
   const [d, setD] = useState(initial?.description || "");
   const [err, setErr] = useState<string | null>(null);
 
-  React.useEffect(() => {
-    if (open) {
-      setT(initial?.title || "");
-      setD(initial?.description || "");
-      setErr(null);
-    }
-  }, [open, initial]);
-
-  function submit(e: React.FormEvent) {
+  function submit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setErr(null);
     if (!t.trim() || !d.trim()) { setErr("Judul dan deskripsi wajib diisi."); return; }

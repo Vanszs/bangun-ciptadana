@@ -13,7 +13,7 @@ import { Select } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/components/ui/toast";
-import { Pencil, Trash2, Loader2, Search, Image as ImageIcon, X, Plus, ArrowUp, ArrowDown, ChevronsUpDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { Pencil, Trash2, Loader2, Search, Image as ImageIcon, Plus, ArrowUp, ArrowDown, ChevronsUpDown, ChevronLeft, ChevronRight } from "lucide-react";
 import type { ProjectItem } from "@/data/types";
 
 const CATEGORIES = [
@@ -220,6 +220,7 @@ export default function ProjectsTable({ initial }: Props) {
       )}
 
       <ProjectFormDialog
+        key="create"
         open={creating}
         onOpenChange={setCreating}
         onSubmit={handleCreate}
@@ -228,6 +229,7 @@ export default function ProjectsTable({ initial }: Props) {
       />
 
       <ProjectFormDialog
+        key={editing?.id ?? "new"}
         open={!!editing}
         onOpenChange={(o) => !o && setEditing(null)}
         initial={editing || undefined}
@@ -273,17 +275,7 @@ function ProjectFormDialog({
   const [url, setUrl] = useState(initial?.imageUrl || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80");
   const [err, setErr] = useState<string | null>(null);
 
-  React.useEffect(() => {
-    if (open) {
-      setT(initial?.title || "");
-      setD(initial?.description || "");
-      setC(initial?.category || CATEGORIES[0]);
-      setUrl(initial?.imageUrl || "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80");
-      setErr(null);
-    }
-  }, [open, initial]);
-
-  function submit(e: React.FormEvent) {
+  function submit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setErr(null);
     if (!t.trim() || !d.trim() || !url.trim()) {

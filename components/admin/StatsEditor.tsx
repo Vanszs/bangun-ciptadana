@@ -84,8 +84,8 @@ export default function StatsEditor({ initial }: Props) {
         </button>
       </div>
 
-      <StatFormDialog open={creating} onOpenChange={setCreating} onSubmit={handleCreate} busy={busy} title="Tambah Statistik" />
-      <StatFormDialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)} initial={editing || undefined} onSubmit={handleUpdate} busy={busy} title="Edit Statistik" />
+      <StatFormDialog key="create" open={creating} onOpenChange={setCreating} onSubmit={handleCreate} busy={busy} title="Tambah Statistik" />
+      <StatFormDialog key={editing?.id ?? "new"} open={!!editing} onOpenChange={(o) => !o && setEditing(null)} initial={editing || undefined} onSubmit={handleUpdate} busy={busy} title="Edit Statistik" />
 
       <Dialog open={!!confirmDelete} onOpenChange={(o) => !o && setConfirmDelete(null)}>
         <DialogContent>
@@ -109,16 +109,7 @@ function StatFormDialog({ open, onOpenChange, initial, onSubmit, busy, title }: 
   const [ic, setIc] = useState(initial?.iconName || "Calendar");
   const [err, setErr] = useState<string | null>(null);
 
-  React.useEffect(() => {
-    if (open) {
-      setV(initial?.value || "");
-      setL(initial?.label || "");
-      setIc(initial?.iconName || "Calendar");
-      setErr(null);
-    }
-  }, [open, initial]);
-
-  function submit(e: React.FormEvent) {
+  function submit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setErr(null);
     if (!v.trim() || !l.trim()) { setErr("Value dan label wajib diisi."); return; }

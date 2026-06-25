@@ -7,7 +7,7 @@ export async function middleware(req: NextRequest) {
 
   const token = await getToken({
     req,
-    secret: process.env.NEXTAUTH_SECRET || "bangun-ciptadana-dev-secret-change-in-production-9f8e7d6c5b4a3",
+    secret: process.env.NEXTAUTH_SECRET,
   });
 
   const isLoggedIn = !!token;

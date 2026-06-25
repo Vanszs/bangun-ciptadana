@@ -79,8 +79,8 @@ export default function TeamEditor({ initial }: Props) {
         </button>
       </div>
 
-      <MemberFormDialog open={creating} onOpenChange={setCreating} onSubmit={handleCreate} busy={busy} title="Tambah Anggota Tim" />
-      <MemberFormDialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)} initial={editing || undefined} onSubmit={handleUpdate} busy={busy} title="Edit Anggota Tim" />
+      <MemberFormDialog key="create" open={creating} onOpenChange={setCreating} onSubmit={handleCreate} busy={busy} title="Tambah Anggota Tim" />
+      <MemberFormDialog key={editing?.id ?? "new"} open={!!editing} onOpenChange={(o) => !o && setEditing(null)} initial={editing || undefined} onSubmit={handleUpdate} busy={busy} title="Edit Anggota Tim" />
 
       <Dialog open={!!confirmDelete} onOpenChange={(o) => !o && setConfirmDelete(null)}>
         <DialogContent>
@@ -104,16 +104,7 @@ function MemberFormDialog({ open, onOpenChange, initial, onSubmit, busy, title }
   const [u, setU] = useState(initial?.imageUrl || "");
   const [err, setErr] = useState<string | null>(null);
 
-  React.useEffect(() => {
-    if (open) {
-      setN(initial?.name || "");
-      setP(initial?.position || "");
-      setU(initial?.imageUrl || "");
-      setErr(null);
-    }
-  }, [open, initial]);
-
-  function submit(e: React.FormEvent) {
+  function submit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setErr(null);
     if (!n.trim() || !p.trim()) { setErr("Nama dan jabatan wajib diisi."); return; }

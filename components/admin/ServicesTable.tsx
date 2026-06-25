@@ -210,6 +210,7 @@ export default function ServicesTable({ initial }: Props) {
       )}
 
       <ServiceFormDialog
+        key="create"
         open={creating}
         onOpenChange={setCreating}
         onSubmit={handleCreate}
@@ -218,6 +219,7 @@ export default function ServicesTable({ initial }: Props) {
       />
 
       <ServiceFormDialog
+        key={editing?.id ?? "new"}
         open={!!editing}
         onOpenChange={(o) => !o && setEditing(null)}
         initial={editing || undefined}
@@ -267,16 +269,7 @@ function ServiceFormDialog({
   const [ic, setIc] = useState(initial?.iconName || "Briefcase");
   const [err, setErr] = useState<string | null>(null);
 
-  React.useEffect(() => {
-    if (open) {
-      setT(initial?.title || "");
-      setD(initial?.description || "");
-      setIc(initial?.iconName || "Briefcase");
-      setErr(null);
-    }
-  }, [open, initial]);
-
-  function submit(e: React.FormEvent) {
+  function submit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setErr(null);
     if (!t.trim() || !d.trim()) {
