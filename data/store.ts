@@ -66,7 +66,12 @@ const defaultStore = (): StoreData => ({
 
 let cache: StoreData | null = null;
 
+// Vercel serverless filesystem is read-only at runtime.
+// Use in-memory default store there so reads still work and writes are no-ops.
+const isServerlessReadOnly = !!process.env.VERCEL || !!process.env.AWS_LAMBDA_FUNCTION_NAME;
+
 async function ensureFile(): Promise<void> {
+  if (isServerlessReadOnly) return;
   try {
     await fs.access(STORE_PATH);
   } catch {
@@ -100,6 +105,7 @@ export async function readStore(): Promise<StoreData> {
 
 export async function writeStore(next: StoreData): Promise<void> {
   cache = next;
+  if (isServerlessReadOnly) return;
   await ensureFile();
   await fs.writeFile(STORE_PATH, JSON.stringify(next, null, 2), "utf-8");
 }
