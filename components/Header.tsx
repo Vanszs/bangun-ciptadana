@@ -35,30 +35,14 @@ export default function Header() {
       {isHome ? (
         <Link
           href="/"
-          className="group relative flex items-center justify-center bg-white/95 hover:bg-white px-5 h-12 rounded-b-2xl shadow-md transition-colors focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2"
+          className="group inline-flex items-center gap-2.5 pl-3 pr-4 py-2 rounded-full bg-white/95 hover:bg-white shadow-md transition-colors focus-visible:outline-2 focus-visible:outline-brand-primary focus-visible:outline-offset-2"
           id="brand-logo-container"
         >
-          {/* Left outward curve mask */}
-          <svg
-            className="absolute top-0 -left-6 w-6 h-6 text-white/95 group-hover:text-white"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M 0 0 C 16 0, 24 8, 24 24 L 24 0 Z" />
-          </svg>
-
           <Logo variant="light" showText={false} size="sm" />
-
-          {/* Right outward curve mask */}
-          <svg
-            className="absolute top-0 -right-6 w-6 h-6 text-white/95 group-hover:text-white"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M 24 0 C 8 0, 0 8, 0 24 L 0 0 Z" />
-          </svg>
+          <div className="flex flex-col leading-none">
+            <span className="font-extrabold tracking-wider text-[11px] text-brand-primary-dark">BANGUN</span>
+            <span className="font-semibold tracking-widest text-[9px] text-brand-secondary-dark">CIPTADANA</span>
+          </div>
         </Link>
       ) : (
         <Link

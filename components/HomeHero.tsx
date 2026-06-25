@@ -99,7 +99,7 @@ export default function HomeHero() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="font-sans text-[11px] md:text-xs font-normal text-zinc-200 leading-relaxed tracking-wide max-w-[320px]"
+                className="font-sans text-[11px] md:text-xs font-normal text-zinc-200 leading-relaxed tracking-wide"
               >
                 {currentSlide.subText}
               </motion.p>
@@ -141,7 +141,7 @@ export default function HomeHero() {
                     hidden: { opacity: 0, y: 25 },
                     visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: "easeOut" } },
                   }}
-                  className="flex flex-wrap items-center gap-4 mt-1"
+                  className="flex flex-col items-start"
                 >
                   <span className="font-serif italic font-normal text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl leading-[0.9]">
                     {currentSlide.titleItalic}
@@ -149,7 +149,7 @@ export default function HomeHero() {
 
                   <Link
                     href="/contact"
-                    className="group inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 rounded-full border border-white/30 hover:border-white/80 bg-black/20 hover:bg-white/10 backdrop-blur-sm text-white font-sans text-xs sm:text-sm font-medium transition-all duration-300 shadow-lg"
+                    className="group inline-flex items-center gap-3 pl-5 pr-1.5 py-1.5 mt-4 rounded-full border border-white/30 hover:border-white/80 bg-black/20 hover:bg-white/10 backdrop-blur-sm text-white font-sans text-xs sm:text-sm font-medium transition-all duration-300 shadow-lg"
                   >
                     <span>Hubungi Kami</span>
                     <span className="w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-white flex items-center justify-center text-zinc-950 shadow-sm group-hover:translate-x-1 transition-transform duration-300">
@@ -162,7 +162,7 @@ export default function HomeHero() {
           </div>
 
           {/* Right column: description block, aligned to right edge */}
-          <div className="col-span-12 lg:col-span-4 flex lg:justify-end">
+          <div className="col-span-12 lg:col-span-4 flex lg:justify-end w-full">
             <AnimatePresence mode="wait">
               <motion.div
                 key={`desc-${currentIndex}`}
@@ -170,7 +170,7 @@ export default function HomeHero() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
-                className="max-w-[320px] text-left lg:text-right"
+                className="max-w-[320px] w-full text-left lg:text-right lg:ml-auto"
               >
                 <h3 className="font-sans font-bold text-white text-lg sm:text-xl md:text-2xl tracking-tight leading-snug mb-2">
                   {currentSlide.rightHeading}
