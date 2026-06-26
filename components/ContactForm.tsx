@@ -8,11 +8,11 @@ const JOB_OPTIONS = [
   "Atap dan Kanopi",
   "Partisi",
   "Desain Arsitektur",
-  "Aluminium",
+  "Aluminium dan Kaca",
   "Renovasi dan Perluasan",
   "Pengecatan",
-  "Kaca dan Kelistrikan",
-  "Interior",
+  "Kelislistrikan",
+  "Interior dan Eksterior",
 ];
 
 interface FormData {

@@ -18,7 +18,7 @@ import type { ProjectItem } from "@/data/types";
 
 const CATEGORIES = [
   "Konstruksi Bangunan", "Atap & Kanopi", "Partisi", "Desain Arsitektur",
-  "Aluminium", "Renovasi", "Pengecatan", "Kelistrikan", "Interior", "Lainnya",
+  "Aluminium & Kaca", "Renovasi", "Pengecatan", "Kelistrikan", "Interior & Eksterior", "Lainnya",
 ];
 const PAGE_SIZE = 25;
 type SortKey = "title" | "category";

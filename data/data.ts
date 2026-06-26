@@ -5,11 +5,11 @@ export const SERVICES_DATA: ServiceItem[] = [
   { id: "s2", title: "Atap dan Kanopi", description: "Pemasangan atap, kanopi, baja ringan, dan berbagai struktur pelindung bangunan bergaransi.", iconName: "Home" },
   { id: "s3", title: "Partisi", description: "Pemasangan sekat partisi gipsum, kaca, dan akustik untuk ruang kantor, ruko, maupun hunian.", iconName: "LayoutGrid" },
   { id: "s4", title: "Desain Arsitektur", description: "Jasa perencanaan arsitektur, gambar kerja 2D, visualisasi 3D, dan perhitungan RAB profesional.", iconName: "Compass" },
-  { id: "s5", title: "Aluminium", description: "Fabrikasi dan pemasangan kusen, pintu, jendela aluminium kualitas premium berskala besar.", iconName: "Layers" },
+  { id: "s5", title: "Aluminium dan Kaca", description: "Fabrikasi dan pemasangan kusen, pintu, jendela aluminium, serta instalasi kaca tempered dan fasad kaca berkualitas premium berskala besar.", iconName: "Layers" },
   { id: "s6", title: "Renovasi dan Perluasan", description: "Solusi perbaikan struktur, renovasi fasad, serta pelebaran ruang bangunan lama Anda.", iconName: "Scaling" },
   { id: "s7", title: "Pengecatan", description: "Pekerjaan pengecatan dinding interior dan eksterior gedung dengan cat tahan cuaca ekstrem.", iconName: "Paintbrush" },
-  { id: "s8", title: "Kaca dan Kelistrikan", description: "Instalasi panel listrik, jaringan kabel terstruktur, saklar, lampu, serta partisi kaca tempered.", iconName: "Lightbulb" },
-  { id: "s9", title: "Interior", description: "Desain interior modern, kitchen set, backdrop, dan pengerjaan mebel custom berkualitas tinggi.", iconName: "Armchair" },
+  { id: "s8", title: "Kelislistrikan", description: "Instalasi panel listrik, jaringan kabel terstruktur, saklar, lampu, dan sistem kelistrikan bangunan.", iconName: "Lightbulb" },
+  { id: "s9", title: "Interior dan Eksterior", description: "Desain interior modern, kitchen set, backdrop, pengerjaan mebel custom, serta finishing eksterior bangunan berkualitas tinggi.", iconName: "Armchair" },
 ];
 
 export const STATS_DATA: CompanyStat[] = [
